@@ -7,36 +7,15 @@ interface MainLayoutProps {
   children: ReactNode;
 }
 
-export default function MainLayout({
-  children,
-}: MainLayoutProps) {
+export default function MainLayout({ children }: MainLayoutProps) {
   return (
-    <div
-      style={{
-        display: "flex",
-        height: "100vh",
-      }}
-    >
+    <div className="app-shell">
       <Sidebar />
 
-      <div
-        style={{
-          flex: 1,
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
+      <div className="content-shell">
         <Header />
 
-        <main
-          style={{
-            flex: 1,
-            padding: "30px",
-            background: "#f4f6f9",
-          }}
-        >
-          {children}
-        </main>
+        <main className="app-main">{children}</main>
       </div>
     </div>
   );
