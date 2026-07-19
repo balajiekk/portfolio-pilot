@@ -1,16 +1,19 @@
 import type { ChangeEvent } from "react";
-import { NavLink, useSearchParams } from "react-router-dom";
+import { NavLink, useLocation, useSearchParams } from "react-router-dom";
 import { Search, X } from "lucide-react";
+
+const usStocksPath = "/investments/us-stocks/my-us-stocks";
 
 const tabs = [
   { label: "Explore", to: "/explore" },
-  { label: "My US Stocks", to: "/investments/us-stocks/my-us-stocks" },
+  { label: "My US Stocks", to: usStocksPath },
   { label: "Orders" },
   { label: "Watchlist" },
   { label: "Wallet History" },
 ];
 
 export default function Header() {
+  const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q") ?? "";
 
@@ -33,6 +36,10 @@ export default function Header() {
     setSearchParams(nextParams);
   }
 
+  function isTabActive(label: string, isActive: boolean) {
+    return isActive || (label === "My US Stocks" && location.pathname === "/");
+  }
+
   return (
     <header className="topbar">
       <div className="topbar__tabs" aria-label="US stocks sections">
@@ -42,7 +49,7 @@ export default function Header() {
               key={tab.label}
               aria-label={tab.label}
               className={({ isActive }) =>
-                `topbar__tab${isActive ? " topbar__tab--active" : ""}`
+                `topbar__tab${isTabActive(tab.label, isActive) ? " topbar__tab--active" : ""}`
               }
               to={tab.to}
             >
