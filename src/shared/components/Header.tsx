@@ -1,8 +1,14 @@
 import type { ChangeEvent } from "react";
-import { useSearchParams } from "react-router-dom";
+import { NavLink, useSearchParams } from "react-router-dom";
 import { Search, X } from "lucide-react";
 
-const tabs = ["Explore", "My US Stocks", "Orders", "Watchlist", "Wallet History"];
+const tabs = [
+  { label: "Explore", to: "/explore" },
+  { label: "My US Stocks", to: "/investments/us-stocks/my-us-stocks" },
+  { label: "Orders" },
+  { label: "Watchlist" },
+  { label: "Wallet History" },
+];
 
 export default function Header() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -30,16 +36,24 @@ export default function Header() {
   return (
     <header className="topbar">
       <div className="topbar__tabs" aria-label="US stocks sections">
-        {tabs.map((tab) => (
-          <button
-            key={tab}
-            aria-current={tab === "My US Stocks" ? "page" : undefined}
-            className={`topbar__tab${tab === "My US Stocks" ? " topbar__tab--active" : ""}`}
-            type="button"
-          >
-            {tab}
-          </button>
-        ))}
+        {tabs.map((tab) =>
+          "to" in tab ? (
+            <NavLink
+              key={tab.label}
+              aria-label={tab.label}
+              className={({ isActive }) =>
+                `topbar__tab${isActive ? " topbar__tab--active" : ""}`
+              }
+              to={tab.to}
+            >
+              {tab.label}
+            </NavLink>
+          ) : (
+            <button key={tab.label} className="topbar__tab" type="button">
+              {tab.label}
+            </button>
+          ),
+        )}
       </div>
 
       <div className="search-field" role="search">
