@@ -1,0 +1,237 @@
+.explore-page {
+  display: grid;
+  min-height: 100%;
+  gap: 24px;
+  padding: 36px 48px 48px;
+  background: #f7f9fb;
+}
+
+.explore-page__header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.explore-page__copy {
+  display: grid;
+  max-width: 760px;
+  gap: 8px;
+}
+
+.explore-page__copy span {
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 750;
+  text-transform: uppercase;
+}
+
+.explore-page__copy h1 {
+  color: #101827;
+  font-size: 32px;
+  font-weight: 760;
+  line-height: 1.15;
+}
+
+.explore-page__copy p {
+  color: #5c6676;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.fund-picker {
+  display: grid;
+  min-width: 260px;
+  gap: 8px;
+}
+
+.fund-picker label {
+  color: #6d7684;
+  font-size: 13px;
+  font-weight: 750;
+  text-transform: uppercase;
+}
+
+.fund-picker select {
+  min-height: 46px;
+  padding: 0 14px;
+  border: 1px solid #dde3e8;
+  border-radius: 8px;
+  color: #101827;
+  background: #ffffff;
+  font: inherit;
+  font-weight: 650;
+}
+
+.explore-metrics {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(4, minmax(150px, 1fr));
+}
+
+.explore-metric {
+  display: grid;
+  min-height: 118px;
+  align-content: center;
+  gap: 8px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.explore-metric span {
+  color: #6d7684;
+  font-size: 13px;
+  font-weight: 750;
+  text-transform: uppercase;
+}
+
+.explore-metric strong {
+  color: #101827;
+  font-size: 25px;
+  font-weight: 760;
+  line-height: 1.1;
+}
+
+.explore-metric small {
+  color: #687385;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.explore-metric--positive strong {
+  color: var(--green);
+}
+
+.explore-chart {
+  display: grid;
+  gap: 18px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.explore-chart__heading {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.explore-chart__heading h2 {
+  color: #101827;
+  font-size: 20px;
+  font-weight: 760;
+}
+
+.explore-chart__heading p {
+  margin-top: 6px;
+  color: #687385;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.explore-chart__badge {
+  flex: 0 0 auto;
+  padding: 8px 12px;
+  border: 1px solid #bfe9d4;
+  border-radius: 8px;
+  color: var(--green);
+  background: #f1fff8;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.explore-chart__canvas {
+  position: relative;
+  height: 360px;
+  min-height: 280px;
+}
+
+.explore-chart__canvas canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.explore-insights {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+}
+
+.explore-insight {
+  display: grid;
+  gap: 8px;
+  padding: 18px;
+  border: 1px solid var(--line-soft);
+  border-radius: 8px;
+  background: #fbfcfd;
+}
+
+.explore-insight h3 {
+  color: #101827;
+  font-size: 16px;
+  font-weight: 740;
+}
+
+.explore-insight p {
+  color: #687385;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+@media (max-width: 1180px) {
+  .explore-page {
+    padding-right: 28px;
+    padding-left: 28px;
+  }
+
+  .explore-metrics {
+    grid-template-columns: repeat(2, minmax(190px, 1fr));
+  }
+}
+
+@media (max-width: 920px) {
+  .explore-page {
+    gap: 20px;
+    padding: 24px 16px 32px;
+  }
+
+  .explore-page__header,
+  .explore-chart__heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .explore-page__copy h1 {
+    font-size: 26px;
+  }
+
+  .explore-page__copy p {
+    font-size: 16px;
+  }
+
+  .fund-picker {
+    min-width: 0;
+  }
+
+  .explore-insights {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .explore-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .explore-chart {
+    padding: 16px;
+  }
+
+  .explore-chart__canvas {
+    height: 300px;
+  }
+}
