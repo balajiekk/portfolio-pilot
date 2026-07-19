@@ -1,32 +1,25 @@
 import { Route, Routes } from "react-router-dom";
 
 import MainLayout from "../layouts/MainLayout";
+import BalaStocksPage from "../../features/bala-stocks/BalaStocksPage";
 import Dashboard from "../../features/dashboard/Dashboard";
-import DummyPage from "../../shared/components/DummyPage";
+import FAndOPage from "../../features/f-and-o/FAndOPage";
+import FundsPage from "../../features/funds/FundsPage";
+import MyBalaPage from "../../features/my-bala/MyBalaPage";
+
+function withLayout(page: JSX.Element) {
+  return <MainLayout>{page}</MainLayout>;
+}
 
 export default function AppRoutes() {
-  const dashboard = (
-    <MainLayout>
-      <Dashboard />
-    </MainLayout>
-  );
-
-  function dummyPage(title: string) {
-    return (
-      <MainLayout>
-        <DummyPage title={title} />
-      </MainLayout>
-    );
-  }
-
   return (
     <Routes>
-      <Route path="/" element={dashboard} />
-      <Route path="/my-bala" element={dummyPage("My Bala")} />
-      <Route path="/bala-stocks" element={dummyPage("BalaStocks")} />
-      <Route path="/f-and-o" element={dummyPage("F&O")} />
-      <Route path="/investments/us-stocks/my-us-stocks" element={dashboard} />
-      <Route path="/funds" element={dummyPage("Funds")} />
+      <Route path="/" element={withLayout(<Dashboard />)} />
+      <Route path="/my-bala" element={withLayout(<MyBalaPage />)} />
+      <Route path="/bala-stocks" element={withLayout(<BalaStocksPage />)} />
+      <Route path="/f-and-o" element={withLayout(<FAndOPage />)} />
+      <Route path="/investments/us-stocks/my-us-stocks" element={withLayout(<Dashboard />)} />
+      <Route path="/funds" element={withLayout(<FundsPage />)} />
     </Routes>
   );
 }
