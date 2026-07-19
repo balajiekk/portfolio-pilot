@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import MainLayout from "../layouts/MainLayout";
@@ -7,7 +8,7 @@ import FAndOPage from "../../features/f-and-o/FAndOPage";
 import FundsPage from "../../features/funds/FundsPage";
 import MyBalaPage from "../../features/my-bala/MyBalaPage";
 
-function withLayout(page: JSX.Element) {
+function withLayout(page: ReactElement) {
   return <MainLayout>{page}</MainLayout>;
 }
 
