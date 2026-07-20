@@ -47,15 +47,17 @@ export default function Header() {
   return (
     <header className="topbar">
       <div className="topbar__tabs" aria-label="US stocks sections">
-        {tabs.map((tab) =>
-          "to" in tab ? (
+        {tabs.map((tab) => {
+          const to = tab.to;
+
+          return to ? (
             <NavLink
               key={tab.label}
               aria-label={tab.label}
               className={({ isActive }) =>
                 `topbar__tab${isTabActive(tab.label, isActive) ? " topbar__tab--active" : ""}`
               }
-              to={tab.to}
+              to={to}
             >
               {tab.label}
             </NavLink>
@@ -63,8 +65,8 @@ export default function Header() {
             <button key={tab.label} className="topbar__tab" type="button">
               {tab.label}
             </button>
-          ),
-        )}
+          );
+        })}
       </div>
 
       <div className="search-field" role="search">
