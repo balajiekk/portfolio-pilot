@@ -67,4 +67,4 @@ src/
 
 The current dashboard uses static sample portfolio data from `src/features/dashboard/data/portfolioData.ts`. It is ready to be connected to live portfolio, market index, or brokerage APIs when those services are available.
 
-The Vite build uses `base: "/portfolio-pilot/"` and creates a `dist/404.html` fallback so GitHub Pages can render React Router pages when users open or refresh nested routes directly. Pushes to `main` are built and published to the `gh-pages` branch by GitHub Actions.
+The Vite build uses `base: "/portfolio-pilot/"` and creates static SPA fallback files for known React Router paths so GitHub Pages can render nested pages when users open or refresh them directly. Pushes to `main` are built and published to the `gh-pages` branch by GitHub Actions.
