@@ -3,7 +3,6 @@ import {
   Home,
   Landmark,
   LineChart,
-  PieChart,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { NavLink } from "react-router-dom";
@@ -24,14 +23,16 @@ const navItems: NavItem[] = [
     icon: DollarSign,
     to: "/investments/us-stocks/my-us-stocks",
   },
-  { label: "Funds", icon: PieChart, to: "/funds" },
 ];
 
 export default function Sidebar() {
   return (
     <aside className="sidebar" aria-label="Primary navigation">
-      <NavLink className="brand-lockup" to="/" aria-label="Bala Money home">
-        <img src={balaLogo} alt="" />
+      <NavLink className="brand-lockup" to="/my-bala" aria-label="Bala Wealth home">
+        <span className="brand-lockup__mark" aria-hidden="true">
+          <img src={balaLogo} alt="" />
+        </span>
+        <span className="brand-lockup__name">Bala</span>
       </NavLink>
 
       <nav className="side-nav">

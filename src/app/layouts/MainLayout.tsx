@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import Header from "../../shared/components/Header";
+import Sidebar from "../../shared/components/Sidebar";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -9,9 +9,9 @@ interface MainLayoutProps {
 export default function MainLayout({ children }: MainLayoutProps) {
   return (
     <div className="app-shell">
-      <div className="content-shell">
-        <Header />
+      <Sidebar />
 
+      <div className="content-shell">
         <main className="app-main">{children}</main>
       </div>
     </div>

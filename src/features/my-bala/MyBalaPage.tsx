@@ -10,22 +10,14 @@ const metrics: SectionMetric[] = [
 
 const items: SectionListItem[] = [
   {
-    title: "Review US stock gains",
-    detail: "MRVL and MLTX are both above 100% returns.",
-    value: "2 alerts",
-    icon: "chart",
+    title: "Marvell Technology Inc.",
+    detail: "MRVL",
+    value: "+$192.52",
   },
   {
-    title: "Diversify healthcare exposure",
-    detail: "UNH and MRK are driving most defensive allocation.",
-    value: "38%",
-    icon: "lightbulb",
-  },
-  {
-    title: "Keep cash ready",
-    detail: "Cash can cover your next three planned orders.",
-    value: "$2.8k",
-    icon: "wallet",
+    title: "Merck & Co. Inc.",
+    detail: "MRK",
+    value: "+$143.86",
   },
 ];
 
@@ -34,9 +26,9 @@ export default function MyBalaPage() {
     <SectionPage
       eyebrow="Net worth snapshot"
       title="Good morning, Bala"
-      summary="A quick view of your tracked money across stocks, funds, cash, and open trading activity."
+      summary="A quiet view of your tracked money across stocks, funds, cash, and open trading activity."
       metrics={metrics}
-      listTitle="Suggested next steps"
+      listTitle="Top movers"
       items={items}
     />
   );
