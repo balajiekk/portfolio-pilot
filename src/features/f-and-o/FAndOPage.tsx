@@ -10,8 +10,18 @@ const metrics: SectionMetric[] = [
 
 const items: SectionListItem[] = [
   { title: "NIFTY bull call spread", detail: "Defined-risk setup with limited downside.", value: "+$96" },
-  { title: "BANKNIFTY hedge", detail: "Protects downside if financials reverse.", value: "Active" },
-  { title: "IV watch", detail: "Premiums are cooling before weekly expiry.", value: "Low" },
+  {
+    title: "BANKNIFTY hedge",
+    detail: "Protects downside if financials reverse.",
+    value: "Active",
+    valueTone: "sage",
+  },
+  {
+    title: "IV watch",
+    detail: "Premiums are cooling before weekly expiry.",
+    value: "Low",
+    valueTone: "gold",
+  },
 ];
 
 export default function FAndOPage() {

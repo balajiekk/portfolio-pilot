@@ -14,6 +14,7 @@ export interface SectionListItem {
   title: string;
   detail: string;
   value: string;
+  valueTone?: "gold" | "sage";
   icon?: SectionListIcon;
 }
 
@@ -109,7 +110,13 @@ export default function SectionPage({
                   <h3>{item.title}</h3>
                   <p>{item.detail}</p>
                 </div>
-                <strong>{item.value}</strong>
+                <strong
+                  className={
+                    item.valueTone ? `section-list__value--${item.valueTone}` : undefined
+                  }
+                >
+                  {item.value}
+                </strong>
               </article>
             );
           })}

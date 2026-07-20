@@ -10,7 +10,12 @@ const metrics: SectionMetric[] = [
 
 const items: SectionListItem[] = [
   { title: "Reliance Industries", detail: "Energy and retail strength keeping trend positive.", value: "+1.2%" },
-  { title: "HDFC Bank", detail: "Watching for breakout above recent resistance.", value: "Buy zone" },
+  {
+    title: "HDFC Bank",
+    detail: "Watching for breakout above recent resistance.",
+    value: "Buy zone",
+    valueTone: "gold",
+  },
   { title: "Tata Motors", detail: "Auto momentum remains strong after volume pickup.", value: "+2.4%" },
 ];
 
