@@ -9,6 +9,7 @@ interface PageListItem {
   title: string;
   detail: string;
   value: string;
+  valueTone?: "gold" | "sage";
 }
 
 interface PageContent {
@@ -53,7 +54,7 @@ const pages: Record<string, PageContent> = {
     listTitle: "Market focus",
     items: [
       { title: "Reliance Industries", detail: "Energy and retail strength keeping trend positive.", value: "+1.2%" },
-      { title: "HDFC Bank", detail: "Watching for breakout above recent resistance.", value: "Buy zone" },
+      { title: "HDFC Bank", detail: "Watching for breakout above recent resistance.", value: "Buy zone", valueTone: "gold" },
       { title: "Tata Motors", detail: "Auto momentum remains strong after volume pickup.", value: "+2.4%" },
     ],
   },
@@ -71,8 +72,8 @@ const pages: Record<string, PageContent> = {
     listTitle: "Position monitor",
     items: [
       { title: "NIFTY bull call spread", detail: "Defined-risk setup with limited downside.", value: "+$96" },
-      { title: "BANKNIFTY hedge", detail: "Protects downside if financials reverse.", value: "Active" },
-      { title: "IV watch", detail: "Premiums are cooling before weekly expiry.", value: "Low" },
+      { title: "BANKNIFTY hedge", detail: "Protects downside if financials reverse.", value: "Active", valueTone: "sage" },
+      { title: "IV watch", detail: "Premiums are cooling before weekly expiry.", value: "Low", valueTone: "gold" },
     ],
   },
   Orders: {
@@ -191,7 +192,9 @@ export default function DummyPage({ title }: DummyPageProps) {
                 <h3>{item.title}</h3>
                 <p>{item.detail}</p>
               </div>
-              <strong>{item.value}</strong>
+              <strong className={item.valueTone ? `section-list__value--${item.valueTone}` : undefined}>
+                {item.value}
+              </strong>
             </article>
           ))}
         </div>

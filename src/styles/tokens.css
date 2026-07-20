@@ -17,8 +17,10 @@
   --wealth-sidebar-bg: #081a14;
   --wealth-sidebar-active: #132b22;
   --wealth-sidebar-hover: rgba(215, 174, 94, 0.08);
+  --wealth-focus-ring: rgba(201, 161, 92, 0.36);
   --wealth-card-bg: rgba(255, 255, 255, 0.62);
   --wealth-panel-bg: rgba(255, 255, 255, 0.58);
+  --wealth-surface-hover: rgba(255, 255, 255, 0.52);
   --wealth-line: #ded5c7;
   --wealth-line-muted: #d9d0c3;
   --wealth-text-primary: #14251c;
@@ -36,6 +38,10 @@
   --wealth-positive-text: #5c7a5f;
   --wealth-avatar-bg: #14251f;
   --wealth-avatar-text: #c9a15c;
+  --wealth-chip-gold-bg: rgba(201, 161, 92, 0.18);
+  --wealth-chip-gold-text: #8a622b;
+  --wealth-chip-sage-bg: rgba(92, 122, 95, 0.16);
+  --wealth-chip-sage-text: #4f704f;
   --wealth-brand-mark-bg: #10251d;
   --wealth-brand-text: #f8f1e5;
   --wealth-nav-muted: #95a39c;
