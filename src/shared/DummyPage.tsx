@@ -75,6 +75,42 @@ const pages: Record<string, PageContent> = {
       { title: "IV watch", detail: "Premiums are cooling before weekly expiry.", value: "Low" },
     ],
   },
+  Orders: {
+    eyebrow: "Activity history",
+    title: "Orders",
+    summary:
+      "Review recent buy and sell orders, open requests, and completed trades from the US stocks desk.",
+    metrics: [
+      { label: "Open orders", value: "3", detail: "Awaiting execution" },
+      { label: "Completed", value: "18", detail: "Last 30 days", positive: true },
+      { label: "Cancelled", value: "2", detail: "Price moved away" },
+      { label: "Avg. fill", value: "99.4%", detail: "Near target price", positive: true },
+    ],
+    listTitle: "Recent orders",
+    items: [
+      { title: "MRK buy order", detail: "Filled at target during market open.", value: "Complete" },
+      { title: "UNH limit order", detail: "Waiting for price to revisit your limit.", value: "Open" },
+      { title: "CROX partial buy", detail: "One tranche completed, one remaining.", value: "Partial" },
+    ],
+  },
+  "Wallet History": {
+    eyebrow: "Cash movement",
+    title: "Wallet history",
+    summary:
+      "Track deposits, withdrawals, settled cash, and pending wallet activity across your portfolio.",
+    metrics: [
+      { label: "Cash balance", value: "$2,840", detail: "Available to invest" },
+      { label: "Deposits", value: "$1,200", detail: "This month", positive: true },
+      { label: "Withdrawals", value: "$0", detail: "No recent exits" },
+      { label: "Pending", value: "$300", detail: "Settles next day" },
+    ],
+    listTitle: "Recent cash flow",
+    items: [
+      { title: "Bank deposit", detail: "Added cash for planned US stock orders.", value: "+$800" },
+      { title: "Dividend credit", detail: "Cash dividend settled into wallet.", value: "+$24" },
+      { title: "FX conversion", detail: "Converted funds for US market purchases.", value: "$300" },
+    ],
+  },
   Funds: {
     eyebrow: "Mutual funds",
     title: "Fund portfolio",

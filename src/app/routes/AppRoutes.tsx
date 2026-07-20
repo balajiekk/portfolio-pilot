@@ -8,6 +8,7 @@ import ExplorePage from "../../features/explore/ExplorePage";
 import FAndOPage from "../../features/f-and-o/FAndOPage";
 import FundsPage from "../../features/funds/FundsPage";
 import MyBalaPage from "../../features/my-bala/MyBalaPage";
+import DummyPage from "../../shared/DummyPage";
 
 function withLayout(page: ReactElement) {
   return <MainLayout>{page}</MainLayout>;
@@ -22,6 +23,8 @@ export default function AppRoutes() {
       <Route path="/bala-stocks" element={withLayout(<BalaStocksPage />)} />
       <Route path="/f-and-o" element={withLayout(<FAndOPage />)} />
       <Route path="/investments/us-stocks/my-us-stocks" element={withLayout(<Dashboard />)} />
+      <Route path="/orders" element={withLayout(<DummyPage title="Orders" />)} />
+      <Route path="/wallet-history" element={withLayout(<DummyPage title="Wallet History" />)} />
       <Route path="/funds" element={withLayout(<FundsPage />)} />
     </Routes>
   );

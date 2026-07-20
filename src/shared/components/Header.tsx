@@ -1,7 +1,7 @@
 import type { ChangeEvent, FormEvent } from "react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { NavLink, useLocation, useSearchParams } from "react-router-dom";
-import { Search, X } from "lucide-react";
+import { ChevronDown, Clock3, ReceiptText, Search, WalletCards, X } from "lucide-react";
 import { usePortfolio } from "../../features/dashboard/hooks/usePortfolio";
 
 const usStocksPath = "/investments/us-stocks/my-us-stocks";
@@ -13,9 +13,17 @@ type HeaderTab =
 const tabs: HeaderTab[] = [
   { label: "Explore", to: "/explore" },
   { label: "My US Stocks", to: usStocksPath },
-  { label: "Orders" },
   { label: "Watchlist" },
-  { label: "Wallet History" },
+];
+
+const historyLinks = [
+  { label: "Orders", detail: "Recent buy and sell activity", to: "/orders", icon: ReceiptText },
+  {
+    label: "Wallet History",
+    detail: "Deposits, withdrawals, and cash flow",
+    to: "/wallet-history",
+    icon: WalletCards,
+  },
 ];
 
 export default function Header() {
@@ -24,6 +32,8 @@ export default function Header() {
   const query = searchParams.get("q") ?? "";
   const [draftQuery, setDraftQuery] = useState(query);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+  const historyMenuRef = useRef<HTMLDivElement | null>(null);
   const { data } = usePortfolio();
   const suggestions = useMemo(() => {
     const normalizedQuery = draftQuery.trim().toLowerCase();
@@ -70,6 +80,34 @@ export default function Header() {
     return () => window.clearTimeout(timeoutId);
   }, [commitQuery, draftQuery]);
 
+  useEffect(() => {
+    if (!isHistoryOpen) {
+      return undefined;
+    }
+
+    function closeOnOutsideClick(event: MouseEvent) {
+      const target = event.target;
+
+      if (target instanceof Node && !historyMenuRef.current?.contains(target)) {
+        setIsHistoryOpen(false);
+      }
+    }
+
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setIsHistoryOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", closeOnOutsideClick);
+    document.addEventListener("keydown", closeOnEscape);
+
+    return () => {
+      document.removeEventListener("mousedown", closeOnOutsideClick);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [isHistoryOpen]);
+
   function updateQuery(event: ChangeEvent<HTMLInputElement>) {
     setDraftQuery(event.target.value);
   }
@@ -94,6 +132,8 @@ export default function Header() {
     return isActive || (label === "My US Stocks" && location.pathname === "/");
   }
 
+  const isHistoryActive = historyLinks.some((link) => link.to === location.pathname);
+
   return (
     <header className="topbar">
       <div className="topbar__tabs" aria-label="US stocks sections">
@@ -117,6 +157,43 @@ export default function Header() {
             </button>
           );
         })}
+      </div>
+      <div className="history-menu" ref={historyMenuRef}>
+        <button
+          aria-expanded={isHistoryOpen}
+          aria-haspopup="menu"
+          aria-label="Open activity history menu"
+          className={`history-menu__trigger${
+            isHistoryOpen || isHistoryActive ? " history-menu__trigger--active" : ""
+          }`}
+          type="button"
+          onClick={() => setIsHistoryOpen((current) => !current)}
+        >
+          <Clock3 aria-hidden="true" size={21} strokeWidth={2.4} />
+          <ChevronDown aria-hidden="true" size={16} strokeWidth={2.6} />
+        </button>
+
+        {isHistoryOpen ? (
+          <div className="history-menu__panel" role="menu" aria-label="Activity history">
+            {historyLinks.map(({ label, detail, to, icon: Icon }) => (
+              <NavLink
+                key={label}
+                className="history-menu__item"
+                role="menuitem"
+                to={to}
+                onClick={() => setIsHistoryOpen(false)}
+              >
+                <span className="history-menu__item-icon" aria-hidden="true">
+                  <Icon size={18} strokeWidth={2.4} />
+                </span>
+                <span>
+                  <strong>{label}</strong>
+                  <small>{detail}</small>
+                </span>
+              </NavLink>
+            ))}
+          </div>
+        ) : null}
       </div>
 
       <form className="search-field" role="search" onSubmit={submitQuery}>

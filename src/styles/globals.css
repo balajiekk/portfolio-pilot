@@ -244,6 +244,103 @@ ul {
   content: "";
 }
 
+.history-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.history-menu__trigger {
+  display: inline-flex;
+  width: 52px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  align-self: center;
+  border: 1px solid #dde3e8;
+  border-radius: 8px;
+  color: #5c6676;
+  background: #ffffff;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.history-menu__trigger:hover,
+.history-menu__trigger--active {
+  border-color: #bfe9d4;
+  color: var(--color-brand);
+  background: #f1fff8;
+}
+
+.history-menu__panel {
+  position: absolute;
+  z-index: 24;
+  top: calc(100% + 10px);
+  right: 0;
+  display: grid;
+  width: 286px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 18px 42px rgba(17, 24, 39, 0.14);
+}
+
+.history-menu__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  min-height: 74px;
+  padding: 14px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.history-menu__item:last-child {
+  border-bottom: 0;
+}
+
+.history-menu__item:hover,
+.history-menu__item:focus-visible {
+  background: #f6fbf9;
+}
+
+.history-menu__item-icon {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 8px;
+  color: var(--color-brand);
+  background: var(--color-brand-soft);
+}
+
+.history-menu__item strong,
+.history-menu__item small {
+  display: block;
+  min-width: 0;
+}
+
+.history-menu__item strong {
+  color: #101827;
+  font-size: 15px;
+  font-weight: 780;
+}
+
+.history-menu__item small {
+  margin-top: 4px;
+  overflow: hidden;
+  color: #687385;
+  font-size: 13px;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .search-field {
   position: relative;
   display: flex;
@@ -1051,6 +1148,20 @@ ul {
   .topbar__tab {
     height: 44px;
     font-size: 17px;
+  }
+
+  .history-menu {
+    order: 2;
+    align-items: center;
+  }
+
+  .history-menu__trigger {
+    height: 40px;
+  }
+
+  .history-menu__panel {
+    right: auto;
+    left: 0;
   }
 
   .search-field {

@@ -10,6 +10,8 @@ const fallbackFiles = [
   "bala-stocks/index.html",
   "f-and-o/index.html",
   "investments/us-stocks/my-us-stocks/index.html",
+  "orders/index.html",
+  "wallet-history/index.html",
   "funds/index.html",
 ];
 
