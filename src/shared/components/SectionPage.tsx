@@ -1,3 +1,6 @@
+import { Lightbulb, TrendingUp, Wallet } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+
 export interface SectionMetric {
   label: string;
   value: string;
@@ -5,11 +8,20 @@ export interface SectionMetric {
   positive?: boolean;
 }
 
+type SectionListIcon = "chart" | "lightbulb" | "wallet";
+
 export interface SectionListItem {
   title: string;
   detail: string;
   value: string;
+  icon?: SectionListIcon;
 }
+
+const sectionListIcons: Record<SectionListIcon, LucideIcon> = {
+  chart: TrendingUp,
+  lightbulb: Lightbulb,
+  wallet: Wallet,
+};
 
 interface SectionPageProps {
   eyebrow: string;
@@ -55,15 +67,28 @@ export default function SectionPage({
         </div>
 
         <div className="section-list">
-          {items.map((item) => (
-            <article className="section-list__item" key={item.title}>
-              <div>
-                <h3>{item.title}</h3>
-                <p>{item.detail}</p>
-              </div>
-              <strong>{item.value}</strong>
-            </article>
-          ))}
+          {items.map((item) => {
+            const Icon = item.icon ? sectionListIcons[item.icon] : null;
+
+            return (
+              <article
+                className={`section-list__item${Icon ? " section-list__item--with-icon" : ""}`}
+                key={item.title}
+              >
+                {Icon ? (
+                  <span className="section-list__icon" aria-hidden="true">
+                    <Icon size={20} strokeWidth={2.3} />
+                  </span>
+                ) : null}
+
+                <div className="section-list__content">
+                  <h3>{item.title}</h3>
+                  <p>{item.detail}</p>
+                </div>
+                <strong>{item.value}</strong>
+              </article>
+            );
+          })}
         </div>
       </section>
     </section>

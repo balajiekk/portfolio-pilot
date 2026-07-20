@@ -23,6 +23,7 @@ export interface Holding {
   ticker: string;
   logoText: string;
   logoTone: "navy" | "black" | "blue" | "teal";
+  sparkline: number[];
   lastPrice: string;
   dailyChangePercent: string;
   dailyTrend: TrendDirection;

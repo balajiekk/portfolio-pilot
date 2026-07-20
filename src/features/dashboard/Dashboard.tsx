@@ -24,17 +24,49 @@ function TrendIndicator({ trend, value, compact = false }: TrendIndicatorProps) 
 }
 
 function LogoMark({ holding }: { holding: Holding }) {
-  const isWordmark = holding.logoText.length > 1;
-
   return (
     <span
-      className={`stock-logo stock-logo--${holding.logoTone}${
-        isWordmark ? " stock-logo--wordmark" : ""
-      }`}
+      className={`stock-logo stock-logo--${holding.logoTone}`}
       aria-hidden="true"
     >
       {holding.logoText}
     </span>
+  );
+}
+
+function Sparkline({
+  points,
+  trend,
+}: {
+  points: number[];
+  trend: TrendDirection;
+}) {
+  const width = 108;
+  const height = 34;
+  const maxValue = Math.max(...points);
+  const minValue = Math.min(...points);
+  const range = maxValue - minValue || 1;
+  const step = width / Math.max(points.length - 1, 1);
+  const path = points
+    .map((point, index) => {
+      const x = Number((index * step).toFixed(2));
+      const y = Number((height - ((point - minValue) / range) * height).toFixed(2));
+
+      return `${index === 0 ? "M" : "L"} ${x} ${y}`;
+    })
+    .join(" ");
+
+  return (
+    <svg
+      className={`sparkline sparkline--${trend}`}
+      viewBox={`0 0 ${width} ${height}`}
+      role="img"
+      aria-label="7 day trend"
+      preserveAspectRatio="none"
+    >
+      <path className="sparkline__area" d={`${path} L ${width} ${height} L 0 ${height} Z`} />
+      <path className="sparkline__line" d={path} />
+    </svg>
   );
 }
 
@@ -58,14 +90,18 @@ export default function Dashboard() {
 
       <div className="market-strip" aria-label="Market indices">
         {marketIndices.map((index) => (
-          <div className="market-index" key={index.id}>
-            <span className="market-index__name">{index.name}</span>
-            <strong className="market-index__value">{index.value}</strong>
-            <TrendIndicator
-              compact
-              trend={index.trend}
-              value={`${index.change} (${index.changePercent})`}
-            />
+          <div className={`market-index market-index--${index.trend}`} key={index.id}>
+            <div className="market-index__main">
+              <span className="market-index__name">{index.name}</span>
+              <strong className="market-index__value">{index.value}</strong>
+            </div>
+            <span className={`market-index__badge market-index__badge--${index.trend}`}>
+              <TrendIndicator
+                compact
+                trend={index.trend}
+                value={`${index.change} (${index.changePercent})`}
+              />
+            </span>
           </div>
         ))}
       </div>
@@ -75,6 +111,7 @@ export default function Dashboard() {
           <span>Stock</span>
           <span>Market Price</span>
           <span>Invested</span>
+          <span>Trend</span>
           <span>Current Value</span>
           <span>Returns</span>
         </div>
@@ -107,6 +144,11 @@ export default function Dashboard() {
                 <span aria-hidden="true" />
                 {holding.averagePrice} Avg.
               </span>
+            </div>
+
+            <div className="holding-cell holding-cell--sparkline">
+              <span className="cell-label">Trend</span>
+              <Sparkline points={holding.sparkline} trend={holding.totalTrend} />
             </div>
 
             <div className="holding-cell">

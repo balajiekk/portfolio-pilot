@@ -6,10 +6,11 @@ Portfolio Pilot is a React dashboard prototype inspired by the IndMoney US stock
 
 - IndMoney-style US stocks dashboard at `/investments/us-stocks/my-us-stocks`.
 - GitHub Pages-ready routing for direct nested URLs under `/portfolio-pilot`.
-- Market index strip for Nasdaq Comp, Nasdaq 100, Dow Jones, and S&P 100.
-- Holdings table with company identity, latest price, invested amount, current value, and returns.
+- Pill-style market index strip for Nasdaq Comp, Nasdaq 100, Dow Jones, and S&P 100 with color-coded movement badges.
+- Holdings table with consistent circular stock avatars, latest price, invested amount, mini 7-day sparklines, current value, and returns.
 - URL-backed stock search using the `q` query parameter.
-- Responsive sidebar, top navigation, and holdings layout.
+- Suggested next steps card with contextual icons for portfolio review actions.
+- Responsive sidebar, top navigation, holdings layout, and shared color tokens for brand, positive, and negative states.
 
 ## Tech Stack
 
