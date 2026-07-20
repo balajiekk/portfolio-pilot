@@ -30,6 +30,12 @@
   --wealth-gold: #d9ad5a;
   --wealth-gold-dark: #98733a;
   --wealth-positive: #5d805f;
+  --wealth-negative-bg: #f3e4e0;
+  --wealth-negative-text: #a6453e;
+  --wealth-positive-bg: #e8eee5;
+  --wealth-positive-text: #5c7a5f;
+  --wealth-avatar-bg: #14251f;
+  --wealth-avatar-text: #c9a15c;
   --wealth-brand-mark-bg: #10251d;
   --wealth-brand-text: #f8f1e5;
   --wealth-nav-muted: #95a39c;

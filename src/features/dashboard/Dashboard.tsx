@@ -189,7 +189,9 @@ export default function Dashboard() {
           <span>Current Value</span>
           <button className="holding-sort-button" type="button" onClick={toggleReturnsSort}>
             Returns
-            <span aria-hidden="true">{sortDirection === "desc" ? "High" : "Low"}</span>
+            <span className="sr-only">
+              , sorted {sortDirection === "desc" ? "highest first" : "lowest first"}
+            </span>
           </button>
         </div>
 
