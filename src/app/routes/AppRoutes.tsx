@@ -25,6 +25,7 @@ export default function AppRoutes() {
       <Route path="/investments/us-stocks/my-us-stocks" element={withLayout(<Dashboard />)} />
       <Route path="/orders" element={withLayout(<DummyPage title="Orders" />)} />
       <Route path="/wallet-history" element={withLayout(<DummyPage title="Wallet History" />)} />
+      <Route path="/watchlist" element={withLayout(<DummyPage title="Watchlist" />)} />
       <Route path="/funds" element={withLayout(<FundsPage />)} />
     </Routes>
   );

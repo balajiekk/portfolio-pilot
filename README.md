@@ -12,7 +12,7 @@ Portfolio Pilot is a React dashboard prototype inspired by the IndMoney US stock
 - Loading skeletons, retryable error states, and empty states for market indices and holdings.
 - URL-backed stock search using the `q` query parameter with a 300ms debounce and ticker autocomplete suggestions.
 - Sortable holdings returns column and pagination controls for larger portfolios.
-- Compact history menu in the top navigation with quick links to Orders and Wallet History.
+- Bala Wealth branded top navigation with image-based logo, active app links, compact search, profile shortcut, and history quick links.
 - Suggested next steps card with contextual icons for portfolio review actions.
 - Responsive sidebar, top navigation, holdings layout, and shared color tokens for brand, positive, and negative states.
 

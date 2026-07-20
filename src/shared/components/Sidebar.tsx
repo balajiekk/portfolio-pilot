@@ -4,10 +4,10 @@ import {
   Landmark,
   LineChart,
   PieChart,
-  TrendingUp,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import balaLogo from "../../assets/bala-wealth-logo.png";
 
 interface NavItem {
   label: string;
@@ -31,9 +31,7 @@ export default function Sidebar() {
   return (
     <aside className="sidebar" aria-label="Primary navigation">
       <NavLink className="brand-lockup" to="/" aria-label="Bala Money home">
-        <TrendingUp aria-hidden="true" size={34} strokeWidth={3} />
-        <span>Bala</span>
-        <small>money</small>
+        <img src={balaLogo} alt="" />
       </NavLink>
 
       <nav className="side-nav">

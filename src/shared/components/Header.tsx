@@ -3,17 +3,19 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { NavLink, useLocation, useSearchParams } from "react-router-dom";
 import { ChevronDown, Clock3, ReceiptText, Search, WalletCards, X } from "lucide-react";
 import { usePortfolio } from "../../features/dashboard/hooks/usePortfolio";
+import balaLogo from "../../assets/bala-wealth-logo.png";
 
 const usStocksPath = "/investments/us-stocks/my-us-stocks";
 
-type HeaderTab =
-  | { label: string; to: string }
-  | { label: string; to?: never };
+interface HeaderTab {
+  label: string;
+  to: string;
+}
 
 const tabs: HeaderTab[] = [
-  { label: "Explore", to: "/explore" },
   { label: "My US Stocks", to: usStocksPath },
-  { label: "Watchlist" },
+  { label: "Explore", to: "/explore" },
+  { label: "Watchlist", to: "/watchlist" },
 ];
 
 const historyLinks = [
@@ -31,6 +33,7 @@ export default function Header() {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q") ?? "";
   const [draftQuery, setDraftQuery] = useState(query);
+  const [isSearchOpen, setIsSearchOpen] = useState(Boolean(query));
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const historyMenuRef = useRef<HTMLDivElement | null>(null);
@@ -70,6 +73,7 @@ export default function Header() {
 
   useEffect(() => {
     setDraftQuery(query);
+    setIsSearchOpen(Boolean(query));
   }, [query]);
 
   useEffect(() => {
@@ -114,6 +118,7 @@ export default function Header() {
 
   function clearQuery() {
     setDraftQuery("");
+    setIsSearchOpen(false);
     commitQuery("");
   }
 
@@ -124,6 +129,7 @@ export default function Header() {
 
   function selectSuggestion(ticker: string) {
     setDraftQuery(ticker);
+    setIsSearchOpen(true);
     setIsSearchFocused(false);
     commitQuery(ticker);
   }
@@ -136,11 +142,21 @@ export default function Header() {
 
   return (
     <header className="topbar">
+      <NavLink className="topbar-brand" to="/my-bala" aria-label="Bala Wealth home">
+        <span className="topbar-brand__mark" aria-hidden="true">
+          <img src={balaLogo} alt="" />
+        </span>
+        <span className="topbar-brand__copy">
+          <strong>Bala</strong>
+          <small>WEALTH, REFINED</small>
+        </span>
+      </NavLink>
+
       <div className="topbar__tabs" aria-label="US stocks sections">
         {tabs.map((tab) => {
           const to = tab.to;
 
-          return to ? (
+          return (
             <NavLink
               key={tab.label}
               aria-label={tab.label}
@@ -151,91 +167,108 @@ export default function Header() {
             >
               {tab.label}
             </NavLink>
-          ) : (
-            <button key={tab.label} className="topbar__tab" type="button">
-              {tab.label}
-            </button>
           );
         })}
       </div>
-      <div className="history-menu" ref={historyMenuRef}>
-        <button
-          aria-expanded={isHistoryOpen}
-          aria-haspopup="menu"
-          aria-label="Open activity history menu"
-          className={`history-menu__trigger${
-            isHistoryOpen || isHistoryActive ? " history-menu__trigger--active" : ""
-          }`}
-          type="button"
-          onClick={() => setIsHistoryOpen((current) => !current)}
-        >
-          <Clock3 aria-hidden="true" size={21} strokeWidth={2.4} />
-          <ChevronDown aria-hidden="true" size={16} strokeWidth={2.6} />
-        </button>
 
-        {isHistoryOpen ? (
-          <div className="history-menu__panel" role="menu" aria-label="Activity history">
-            {historyLinks.map(({ label, detail, to, icon: Icon }) => (
-              <NavLink
-                key={label}
-                className="history-menu__item"
-                role="menuitem"
-                to={to}
-                onClick={() => setIsHistoryOpen(false)}
-              >
-                <span className="history-menu__item-icon" aria-hidden="true">
-                  <Icon size={18} strokeWidth={2.4} />
-                </span>
-                <span>
-                  <strong>{label}</strong>
-                  <small>{detail}</small>
-                </span>
-              </NavLink>
-            ))}
-          </div>
-        ) : null}
-      </div>
-
-      <form className="search-field" role="search" onSubmit={submitQuery}>
-        <Search aria-hidden="true" size={22} strokeWidth={2} />
-        <input
-          aria-label="Search stocks"
-          type="search"
-          placeholder="Search"
-          value={draftQuery}
-          onChange={updateQuery}
-          onFocus={() => setIsSearchFocused(true)}
-          onBlur={() => window.setTimeout(() => setIsSearchFocused(false), 120)}
-        />
-        {draftQuery ? (
+      <div className="topbar-actions">
+        <div className="history-menu" ref={historyMenuRef}>
           <button
-            aria-label="Clear search"
-            className="search-field__clear"
+            aria-expanded={isHistoryOpen}
+            aria-haspopup="menu"
+            aria-label="Open activity history menu"
+            className={`history-menu__trigger${
+              isHistoryOpen || isHistoryActive ? " history-menu__trigger--active" : ""
+            }`}
             type="button"
-            onClick={clearQuery}
+            onClick={() => setIsHistoryOpen((current) => !current)}
           >
-            <X aria-hidden="true" size={18} strokeWidth={2.4} />
+            <Clock3 aria-hidden="true" size={21} strokeWidth={2.4} />
+            <ChevronDown aria-hidden="true" size={16} strokeWidth={2.6} />
           </button>
-        ) : null}
 
-        {showSuggestions ? (
-          <div className="search-suggestions" role="listbox" aria-label="Stock suggestions">
-            {suggestions.map((holding) => (
-              <button
-                key={holding.id}
-                className="search-suggestions__item"
-                type="button"
-                role="option"
-                onMouseDown={(event) => event.preventDefault()}
-                onClick={() => selectSuggestion(holding.ticker)}
-              >
-                <span>{holding.ticker}</span>
-                <small>{holding.companyName}</small>
-              </button>
-            ))}
-          </div>
-        ) : null}
-      </form>
+          {isHistoryOpen ? (
+            <div className="history-menu__panel" role="menu" aria-label="Activity history">
+              {historyLinks.map(({ label, detail, to, icon: Icon }) => (
+                <NavLink
+                  key={label}
+                  className="history-menu__item"
+                  role="menuitem"
+                  to={to}
+                  onClick={() => setIsHistoryOpen(false)}
+                >
+                  <span className="history-menu__item-icon" aria-hidden="true">
+                    <Icon size={18} strokeWidth={2.4} />
+                  </span>
+                  <span>
+                    <strong>{label}</strong>
+                    <small>{detail}</small>
+                  </span>
+                </NavLink>
+              ))}
+            </div>
+          ) : null}
+        </div>
+
+        <form
+          className={`search-field${isSearchOpen ? " search-field--open" : ""}`}
+          role="search"
+          onSubmit={submitQuery}
+        >
+          <button
+            aria-label="Search stocks"
+            className="search-field__trigger"
+            type="button"
+            onClick={() => setIsSearchOpen(true)}
+          >
+            <Search aria-hidden="true" size={24} strokeWidth={2.4} />
+          </button>
+          <input
+            aria-label="Search stocks"
+            type="search"
+            placeholder="Search"
+            value={draftQuery}
+            onChange={updateQuery}
+            onFocus={() => {
+              setIsSearchOpen(true);
+              setIsSearchFocused(true);
+            }}
+            onBlur={() => window.setTimeout(() => setIsSearchFocused(false), 120)}
+          />
+          {draftQuery ? (
+            <button
+              aria-label="Clear search"
+              className="search-field__clear"
+              type="button"
+              onClick={clearQuery}
+            >
+              <X aria-hidden="true" size={18} strokeWidth={2.4} />
+            </button>
+          ) : null}
+
+          {showSuggestions ? (
+            <div className="search-suggestions" role="listbox" aria-label="Stock suggestions">
+              {suggestions.map((holding) => (
+                <button
+                  key={holding.id}
+                  className="search-suggestions__item"
+                  type="button"
+                  role="option"
+                  onMouseDown={(event) => event.preventDefault()}
+                  onClick={() => selectSuggestion(holding.ticker)}
+                >
+                  <span>{holding.ticker}</span>
+                  <small>{holding.companyName}</small>
+                </button>
+              ))}
+            </div>
+          ) : null}
+        </form>
+
+        <NavLink className="profile-chip" to="/my-bala" aria-label="Open Bala profile">
+          B
+        </NavLink>
+      </div>
     </header>
   );
 }

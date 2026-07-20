@@ -111,6 +111,24 @@ const pages: Record<string, PageContent> = {
       { title: "FX conversion", detail: "Converted funds for US market purchases.", value: "$300" },
     ],
   },
+  Watchlist: {
+    eyebrow: "Market shortlist",
+    title: "Watchlist",
+    summary:
+      "Keep high-conviction stocks close at hand before they move into orders or your portfolio.",
+    metrics: [
+      { label: "Tracked stocks", value: "12", detail: "Across US markets" },
+      { label: "Price alerts", value: "5", detail: "Near target zones" },
+      { label: "Today movers", value: "4", detail: "Above 1% change", positive: true },
+      { label: "New ideas", value: "2", detail: "Added this week" },
+    ],
+    listTitle: "Current watchlist",
+    items: [
+      { title: "NVIDIA Corp.", detail: "Waiting for a pullback before adding exposure.", value: "Alert" },
+      { title: "Apple Inc.", detail: "Watching service revenue momentum after earnings.", value: "Core" },
+      { title: "Tesla Inc.", detail: "Volatility remains high; keep order size small.", value: "Watch" },
+    ],
+  },
   Funds: {
     eyebrow: "Mutual funds",
     title: "Fund portfolio",
