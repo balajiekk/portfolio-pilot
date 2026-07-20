@@ -1,8 +1,14 @@
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-import { holdings, marketIndices } from "./data/portfolioData";
+import { usePortfolio } from "./hooks/usePortfolio";
 import type { Holding, TrendDirection } from "./types/dashboard";
+import { parsePercent } from "../../shared/utils/formatters";
+
+type SortDirection = "asc" | "desc";
+
+const pageSize = 5;
 
 interface TrendIndicatorProps {
   trend: TrendDirection;
@@ -70,17 +76,81 @@ function Sparkline({
   );
 }
 
+function MarketSkeleton() {
+  return (
+    <div className="market-strip" aria-label="Loading market indices">
+      {Array.from({ length: 4 }, (_, index) => (
+        <div className="market-index market-index--skeleton" key={index}>
+          <span className="skeleton skeleton--text" />
+          <span className="skeleton skeleton--short" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function HoldingsSkeleton() {
+  return (
+    <>
+      {Array.from({ length: 5 }, (_, index) => (
+        <article className="holding-row holding-row--skeleton" key={index}>
+          <div className="stock-identity">
+            <span className="skeleton skeleton--avatar" />
+            <div className="stock-identity__text">
+              <span className="skeleton skeleton--company" />
+              <span className="skeleton skeleton--ticker" />
+            </div>
+          </div>
+          <span className="skeleton skeleton--text" />
+          <span className="skeleton skeleton--text" />
+          <span className="skeleton skeleton--sparkline" />
+          <span className="skeleton skeleton--text" />
+          <span className="skeleton skeleton--text" />
+        </article>
+      ))}
+    </>
+  );
+}
+
 export default function Dashboard() {
   const [searchParams] = useSearchParams();
+  const { data, error, isLoading, refetch } = usePortfolio();
+  const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
+  const [page, setPage] = useState(1);
   const query = searchParams.get("q")?.trim().toLowerCase() ?? "";
-  const visibleHoldings = query
-    ? holdings.filter((holding) => {
+  const holdings = data?.holdings ?? [];
+  const marketIndices = data?.marketIndices ?? [];
+  const visibleHoldings = useMemo(() => {
+    const filteredHoldings = query
+      ? holdings.filter((holding) => {
         const companyName = holding.companyName.toLowerCase();
         const ticker = holding.ticker.toLowerCase();
 
         return companyName.includes(query) || ticker.includes(query);
       })
-    : holdings;
+      : holdings;
+
+    return [...filteredHoldings].sort((firstHolding, secondHolding) => {
+      const firstValue = parsePercent(firstHolding.totalGainPercent);
+      const secondValue = parsePercent(secondHolding.totalGainPercent);
+
+      return sortDirection === "desc" ? secondValue - firstValue : firstValue - secondValue;
+    });
+  }, [holdings, query, sortDirection]);
+  const pageCount = Math.max(1, Math.ceil(visibleHoldings.length / pageSize));
+  const paginatedHoldings = useMemo(() => {
+    const startIndex = (page - 1) * pageSize;
+
+    return visibleHoldings.slice(startIndex, startIndex + pageSize);
+  }, [page, visibleHoldings]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [query, sortDirection]);
+
+  function toggleReturnsSort() {
+    setSortDirection((current) => (current === "desc" ? "asc" : "desc"));
+  }
 
   return (
     <section className="stocks-dashboard" aria-labelledby="stocks-page-title">
@@ -88,35 +158,68 @@ export default function Dashboard() {
         My US Stocks
       </h1>
 
-      <div className="market-strip" aria-label="Market indices">
-        {marketIndices.map((index) => (
-          <div className={`market-index market-index--${index.trend}`} key={index.id}>
-            <div className="market-index__main">
-              <span className="market-index__name">{index.name}</span>
-              <strong className="market-index__value">{index.value}</strong>
+      {isLoading && !data ? (
+        <MarketSkeleton />
+      ) : (
+        <div className="market-strip" aria-label="Market indices">
+          {marketIndices.map((index) => (
+            <div className={`market-index market-index--${index.trend}`} key={index.id}>
+              <div className="market-index__main">
+                <span className="market-index__name">{index.name}</span>
+                <strong className="market-index__value">{index.value}</strong>
+              </div>
+              <span className={`market-index__badge market-index__badge--${index.trend}`}>
+                <TrendIndicator
+                  compact
+                  trend={index.trend}
+                  value={`${index.change} (${index.changePercent})`}
+                />
+              </span>
             </div>
-            <span className={`market-index__badge market-index__badge--${index.trend}`}>
-              <TrendIndicator
-                compact
-                trend={index.trend}
-                value={`${index.change} (${index.changePercent})`}
-              />
-            </span>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
 
       <section className="holdings-surface" aria-label="US stock holdings">
-        <div className="holding-row holding-row--header" aria-hidden="true">
+        <div className="holding-row holding-row--header">
           <span>Stock</span>
           <span>Market Price</span>
           <span>Invested</span>
           <span>Trend</span>
           <span>Current Value</span>
-          <span>Returns</span>
+          <button className="holding-sort-button" type="button" onClick={toggleReturnsSort}>
+            Returns
+            <span aria-hidden="true">{sortDirection === "desc" ? "High" : "Low"}</span>
+          </button>
         </div>
 
-        {visibleHoldings.map((holding) => (
+        {isLoading && !data ? <HoldingsSkeleton /> : null}
+
+        {error ? (
+          <div className="empty-state empty-state--error" role="alert">
+            <strong>Portfolio data could not load.</strong>
+            <span>Please retry in a moment.</span>
+            <button type="button" onClick={refetch}>
+              Retry
+            </button>
+          </div>
+        ) : null}
+
+        {!isLoading && !error && holdings.length === 0 ? (
+          <div className="empty-state" role="status">
+            <strong>No holdings yet</strong>
+            <span>Add your first stock to start tracking performance.</span>
+          </div>
+        ) : null}
+
+        {!isLoading && !error && holdings.length > 0 && visibleHoldings.length === 0 ? (
+          <div className="empty-state" role="status">
+            <strong>No matching US stocks</strong>
+            <span>Try another company name or ticker.</span>
+          </div>
+        ) : null}
+
+        {paginatedHoldings.map((holding) => (
           <article className="holding-row" key={holding.id}>
             <div className="stock-identity">
               <LogoMark holding={holding} />
@@ -167,9 +270,23 @@ export default function Dashboard() {
           </article>
         ))}
 
-        {visibleHoldings.length === 0 ? (
-          <div className="empty-state" role="status">
-            No matching US stocks
+        {!isLoading && !error && visibleHoldings.length > pageSize ? (
+          <div className="table-pagination" aria-label="Holdings pagination">
+            <span>
+              Page {page} of {pageCount}
+            </span>
+            <div>
+              <button type="button" disabled={page === 1} onClick={() => setPage((value) => value - 1)}>
+                Previous
+              </button>
+              <button
+                type="button"
+                disabled={page === pageCount}
+                onClick={() => setPage((value) => value + 1)}
+              >
+                Next
+              </button>
+            </div>
           </div>
         ) : null}
       </section>

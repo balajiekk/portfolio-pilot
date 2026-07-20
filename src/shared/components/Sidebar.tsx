@@ -40,6 +40,7 @@ export default function Sidebar() {
         {navItems.map(({ label, icon: Icon, to }) => (
           <NavLink
             key={label}
+            aria-label={label}
             className={({ isActive }) =>
               `side-nav__item${isActive ? " side-nav__item--active" : ""}`
             }

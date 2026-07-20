@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ChangeEvent } from "react";
 
+import { formatPercent } from "../../shared/utils/formatters";
 import "./ExplorePage.css";
 
 type ChartInstance = {
@@ -91,10 +92,6 @@ const funds: FundOption[] = [
     ],
   },
 ];
-
-function formatPercent(value: number) {
-  return `${value.toFixed(1)}%`;
-}
 
 export default function ExplorePage() {
   const [selectedFundId, setSelectedFundId] = useState(funds[0].id);

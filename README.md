@@ -8,7 +8,10 @@ Portfolio Pilot is a React dashboard prototype inspired by the IndMoney US stock
 - GitHub Pages-ready routing for direct nested URLs under `/portfolio-pilot`.
 - Pill-style market index strip for Nasdaq Comp, Nasdaq 100, Dow Jones, and S&P 100 with color-coded movement badges.
 - Holdings table with consistent circular stock avatars, latest price, invested amount, mini 7-day sparklines, current value, and returns.
-- URL-backed stock search using the `q` query parameter.
+- Portfolio data access is isolated behind a `usePortfolio()` hook and service layer so static data can be swapped for live APIs without changing page components.
+- Loading skeletons, retryable error states, and empty states for market indices and holdings.
+- URL-backed stock search using the `q` query parameter with a 300ms debounce and ticker autocomplete suggestions.
+- Sortable holdings returns column and pagination controls for larger portfolios.
 - Suggested next steps card with contextual icons for portfolio review actions.
 - Responsive sidebar, top navigation, holdings layout, and shared color tokens for brand, positive, and negative states.
 
@@ -58,14 +61,19 @@ src/
     dashboard/
       components/
       data/
+      hooks/
+      services/
       types/
   shared/
     components/
+    utils/
   styles/
 ```
 
 ## Notes
 
-The current dashboard uses static sample portfolio data from `src/features/dashboard/data/portfolioData.ts`. It is ready to be connected to live portfolio, market index, or brokerage APIs when those services are available.
+The current dashboard still uses static sample portfolio data from `src/features/dashboard/data/portfolioData.ts`, but components now consume it through `src/features/dashboard/hooks/usePortfolio.ts` and `src/features/dashboard/services/portfolioService.ts`. Replace the service implementation to connect live portfolio, market index, or brokerage APIs.
+
+Vitest and React Testing Library are the recommended next step for component coverage, especially for holdings filtering and returns sorting. They were not added in this pass because this workstation does not have `npm` available, and changing test dependencies without updating `package-lock.json` would break `npm ci` in GitHub Actions.
 
 The Vite build uses `base: "/portfolio-pilot/"` and creates static SPA fallback files for known React Router paths so GitHub Pages can render nested pages when users open or refresh them directly. Pushes to `main` are built and published to the `gh-pages` branch by GitHub Actions.

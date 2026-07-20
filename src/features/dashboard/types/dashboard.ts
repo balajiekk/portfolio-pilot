@@ -35,3 +35,9 @@ export interface Holding {
   totalGainPercent: string;
   totalTrend: TrendDirection;
 }
+
+export interface PortfolioSnapshot {
+  holdings: Holding[];
+  kpis: Kpi[];
+  marketIndices: MarketIndex[];
+}

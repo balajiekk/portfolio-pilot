@@ -1,6 +1,8 @@
-import type { ChangeEvent } from "react";
+import type { ChangeEvent, FormEvent } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { NavLink, useLocation, useSearchParams } from "react-router-dom";
 import { Search, X } from "lucide-react";
+import { usePortfolio } from "../../features/dashboard/hooks/usePortfolio";
 
 const usStocksPath = "/investments/us-stocks/my-us-stocks";
 
@@ -20,24 +22,72 @@ export default function Header() {
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q") ?? "";
+  const [draftQuery, setDraftQuery] = useState(query);
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const { data } = usePortfolio();
+  const suggestions = useMemo(() => {
+    const normalizedQuery = draftQuery.trim().toLowerCase();
 
-  function updateQuery(event: ChangeEvent<HTMLInputElement>) {
-    const nextQuery = event.target.value;
+    if (!normalizedQuery || !data) {
+      return [];
+    }
+
+    return data.holdings
+      .filter((holding) => {
+        const companyName = holding.companyName.toLowerCase();
+        const ticker = holding.ticker.toLowerCase();
+
+        return companyName.includes(normalizedQuery) || ticker.includes(normalizedQuery);
+      })
+      .slice(0, 5);
+  }, [data, draftQuery]);
+  const showSuggestions = isSearchFocused && suggestions.length > 0;
+
+  const commitQuery = useCallback((nextQuery: string, replace = false) => {
     const nextParams = new URLSearchParams(searchParams);
+    const normalizedQuery = nextQuery.trim();
 
-    if (nextQuery) {
-      nextParams.set("q", nextQuery);
+    if (normalizedQuery) {
+      nextParams.set("q", normalizedQuery);
     } else {
       nextParams.delete("q");
     }
 
-    setSearchParams(nextParams);
+    if (nextParams.toString() !== searchParams.toString()) {
+      setSearchParams(nextParams, { replace });
+    }
+  }, [searchParams, setSearchParams]);
+
+  useEffect(() => {
+    setDraftQuery(query);
+  }, [query]);
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      commitQuery(draftQuery, true);
+    }, 300);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [commitQuery, draftQuery]);
+
+  function updateQuery(event: ChangeEvent<HTMLInputElement>) {
+    setDraftQuery(event.target.value);
   }
 
   function clearQuery() {
-    const nextParams = new URLSearchParams(searchParams);
-    nextParams.delete("q");
-    setSearchParams(nextParams);
+    setDraftQuery("");
+    commitQuery("");
+  }
+
+  function submitQuery(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    commitQuery(draftQuery);
+  }
+
+  function selectSuggestion(ticker: string) {
+    setDraftQuery(ticker);
+    setIsSearchFocused(false);
+    commitQuery(ticker);
   }
 
   function isTabActive(label: string, isActive: boolean) {
@@ -69,16 +119,18 @@ export default function Header() {
         })}
       </div>
 
-      <div className="search-field" role="search">
+      <form className="search-field" role="search" onSubmit={submitQuery}>
         <Search aria-hidden="true" size={22} strokeWidth={2} />
         <input
           aria-label="Search stocks"
           type="search"
           placeholder="Search"
-          value={query}
+          value={draftQuery}
           onChange={updateQuery}
+          onFocus={() => setIsSearchFocused(true)}
+          onBlur={() => window.setTimeout(() => setIsSearchFocused(false), 120)}
         />
-        {query ? (
+        {draftQuery ? (
           <button
             aria-label="Clear search"
             className="search-field__clear"
@@ -88,7 +140,25 @@ export default function Header() {
             <X aria-hidden="true" size={18} strokeWidth={2.4} />
           </button>
         ) : null}
-      </div>
+
+        {showSuggestions ? (
+          <div className="search-suggestions" role="listbox" aria-label="Stock suggestions">
+            {suggestions.map((holding) => (
+              <button
+                key={holding.id}
+                className="search-suggestions__item"
+                type="button"
+                role="option"
+                onMouseDown={(event) => event.preventDefault()}
+                onClick={() => selectSuggestion(holding.ticker)}
+              >
+                <span>{holding.ticker}</span>
+                <small>{holding.companyName}</small>
+              </button>
+            ))}
+          </div>
+        ) : null}
+      </form>
     </header>
   );
 }
