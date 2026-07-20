@@ -4,7 +4,11 @@ import { Search, X } from "lucide-react";
 
 const usStocksPath = "/investments/us-stocks/my-us-stocks";
 
-const tabs = [
+type HeaderTab =
+  | { label: string; to: string }
+  | { label: string; to?: never };
+
+const tabs: HeaderTab[] = [
   { label: "Explore", to: "/explore" },
   { label: "My US Stocks", to: usStocksPath },
   { label: "Orders" },
