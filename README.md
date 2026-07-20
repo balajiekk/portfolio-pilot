@@ -14,7 +14,12 @@ Portfolio Pilot is a React dashboard prototype inspired by the IndMoney US stock
 - Sortable holdings returns column and pagination controls for larger portfolios.
 - Bala Wealth branded sidebar with image-based logo and app links for My Bala, BalaStocks, F&O, and US Stocks.
 - Wealth snapshot page styled with a dark rail, serif typography, cream surface, summary cards, and compact holdings rows.
+- Centralized design tokens for colors, fonts, spacing, and radii in `src/styles/tokens.css`.
+- Lazy-loaded feature routes and GitHub Pages SPA fallbacks for nested URLs.
+- Strict shared portfolio types in `src/shared/types/portfolio.ts`.
 - Responsive sidebar, holdings layout, and shared color tokens for brand, positive, and negative states.
+
+See [ARCHITECTURE.md](./ARCHITECTURE.md) for folder structure, data boundaries, and deployment notes.
 
 ## Tech Stack
 

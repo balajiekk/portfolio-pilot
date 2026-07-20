@@ -33,10 +33,10 @@ interface FundOption {
   sip: string;
   expense: string;
   managerView: string;
-  series: FundPoint[];
+  series: [FundPoint, ...FundPoint[]];
 }
 
-const funds: FundOption[] = [
+const funds: [FundOption, ...FundOption[]] = [
   {
     id: "flexi-cap",
     name: "Bala Flexi Cap Fund",
@@ -103,7 +103,7 @@ export default function ExplorePage() {
     [selectedFundId],
   );
 
-  const latestPoint = selectedFund.series[selectedFund.series.length - 1];
+  const latestPoint = selectedFund.series.at(-1) ?? selectedFund.series[0];
   const firstPoint = selectedFund.series[0];
   const returnPercent = ((latestPoint.value - firstPoint.value) / firstPoint.value) * 100;
   const benchmarkPercent =

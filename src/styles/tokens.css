@@ -1,0 +1,72 @@
+:root {
+  --color-bg: #ffffff;
+  --color-surface: #fbfcfd;
+  --color-line: #e8ecef;
+  --color-line-soft: #f0f2f4;
+  --color-text-primary: #111827;
+  --color-text-muted: #687385;
+  --color-brand: #009b62;
+  --color-brand-soft: #ddfae9;
+  --color-positive: #009b62;
+  --color-positive-soft: #e7f8ef;
+  --color-negative: #f01d25;
+  --color-negative-soft: #ffebed;
+  --color-navy: #003e73;
+
+  --wealth-bg: #f8f5ef;
+  --wealth-sidebar-bg: #081a14;
+  --wealth-sidebar-active: #132b22;
+  --wealth-sidebar-hover: rgba(215, 174, 94, 0.08);
+  --wealth-card-bg: rgba(255, 255, 255, 0.62);
+  --wealth-panel-bg: rgba(255, 255, 255, 0.58);
+  --wealth-line: #ded5c7;
+  --wealth-line-muted: #d9d0c3;
+  --wealth-text-primary: #14251c;
+  --wealth-text-heading: #13241b;
+  --wealth-text-row: #16241c;
+  --wealth-text-muted: #706b62;
+  --wealth-text-subtle: #807a70;
+  --wealth-text-label: #8b867b;
+  --wealth-gold: #d9ad5a;
+  --wealth-gold-dark: #98733a;
+  --wealth-positive: #5d805f;
+  --wealth-brand-mark-bg: #10251d;
+  --wealth-brand-text: #f8f1e5;
+  --wealth-nav-muted: #95a39c;
+  --wealth-nav-hover: #d9cdb9;
+
+  --font-sans: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  --font-serif: Georgia, "Times New Roman", serif;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-9: 36px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  --radius-sm: 8px;
+  --radius-md: 11px;
+  --radius-lg: 16px;
+
+  --bg: var(--color-bg);
+  --surface: var(--color-surface);
+  --line: var(--color-line);
+  --line-soft: var(--color-line-soft);
+  --text: var(--color-text-primary);
+  --muted: var(--color-text-muted);
+  --brand-dark: var(--wealth-brand-mark-bg);
+  --brand-dark-strong: var(--wealth-sidebar-bg);
+  --brand-gold: var(--wealth-gold);
+  --brand-mist: #c9d8d1;
+  --wealth-cream: var(--wealth-bg);
+  --green: var(--color-positive);
+  --green-soft: var(--color-brand-soft);
+  --red: var(--color-negative);
+  --navy: var(--color-navy);
+}

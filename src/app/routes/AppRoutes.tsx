@@ -1,17 +1,23 @@
+import { lazy, Suspense } from "react";
 import type { ReactElement } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import MainLayout from "../layouts/MainLayout";
-import BalaStocksPage from "../../features/bala-stocks/BalaStocksPage";
-import Dashboard from "../../features/dashboard/Dashboard";
-import ExplorePage from "../../features/explore/ExplorePage";
-import FAndOPage from "../../features/f-and-o/FAndOPage";
-import FundsPage from "../../features/funds/FundsPage";
-import MyBalaPage from "../../features/my-bala/MyBalaPage";
 import DummyPage from "../../shared/DummyPage";
 
+const BalaStocksPage = lazy(() => import("../../features/bala-stocks/BalaStocksPage"));
+const Dashboard = lazy(() => import("../../features/dashboard/Dashboard"));
+const ExplorePage = lazy(() => import("../../features/explore/ExplorePage"));
+const FAndOPage = lazy(() => import("../../features/f-and-o/FAndOPage"));
+const FundsPage = lazy(() => import("../../features/funds/FundsPage"));
+const MyBalaPage = lazy(() => import("../../features/my-bala/MyBalaPage"));
+
 function withLayout(page: ReactElement) {
-  return <MainLayout>{page}</MainLayout>;
+  return (
+    <MainLayout>
+      <Suspense fallback={<div className="route-loading">Loading page...</div>}>{page}</Suspense>
+    </MainLayout>
+  );
 }
 
 export default function AppRoutes() {

@@ -149,12 +149,14 @@ const pages: Record<string, PageContent> = {
   },
 };
 
+const defaultPage = pages["My Bala"] as PageContent;
+
 interface DummyPageProps {
   title: string;
 }
 
 export default function DummyPage({ title }: DummyPageProps) {
-  const page = pages[title] ?? pages["My Bala"];
+  const page = pages[title] ?? defaultPage;
 
   return (
     <section className="section-page" aria-labelledby="section-page-title">
