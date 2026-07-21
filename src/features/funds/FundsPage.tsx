@@ -19,7 +19,7 @@ export default function FundsPage() {
     <SectionPage
       eyebrow="Mutual funds"
       title="Fund portfolio"
-      summary="See SIP health, category spread, and long-term fund performance without leaving Bala Money."
+      summary="See SIP health, category spread, and long-term fund performance without leaving Wealth Pilot."
       metrics={metrics}
       listTitle="SIP lineup"
       items={items}

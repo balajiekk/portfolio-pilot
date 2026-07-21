@@ -25,7 +25,7 @@ export default function MyBalaPage() {
   return (
     <SectionPage
       eyebrow="Net worth snapshot"
-      title="Good morning, Bala"
+      title="Good morning"
       summary="A quiet view of your tracked money across stocks, funds, cash, and open trading activity."
       metrics={metrics}
       listTitle="Top movers"

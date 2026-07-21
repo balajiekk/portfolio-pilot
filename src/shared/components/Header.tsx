@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { NavLink, useLocation, useSearchParams } from "react-router-dom";
 import { ChevronDown, Clock3, ReceiptText, Search, WalletCards, X } from "lucide-react";
 import { usePortfolio } from "../../features/dashboard/hooks/usePortfolio";
-import balaLogo from "../../assets/bala-wealth-logo.png";
+import BrandMark from "./BrandMark";
 
 const usStocksPath = "/investments/us-stocks/my-us-stocks";
 
@@ -142,13 +142,13 @@ export default function Header() {
 
   return (
     <header className="topbar">
-      <NavLink className="topbar-brand" to="/my-bala" aria-label="Bala Wealth home">
-        <span className="topbar-brand__mark" aria-hidden="true">
-          <img src={balaLogo} alt="" />
+      <NavLink className="topbar-brand" to="/my-bala" aria-label="Wealth Pilot home">
+        <span className="topbar-brand__mark">
+          <BrandMark />
         </span>
         <span className="topbar-brand__copy">
-          <strong>Bala</strong>
-          <small>WEALTH, REFINED</small>
+          <strong>Wealth Pilot</strong>
+          <small>PORTFOLIO, REFINED</small>
         </span>
       </NavLink>
 
@@ -265,8 +265,8 @@ export default function Header() {
           ) : null}
         </form>
 
-        <NavLink className="profile-chip" to="/my-bala" aria-label="Open Bala profile">
-          B
+        <NavLink className="profile-chip" to="/my-bala" aria-label="Open Wealth Pilot profile">
+          W
         </NavLink>
       </div>
     </header>

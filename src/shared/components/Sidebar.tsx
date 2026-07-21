@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { NavLink } from "react-router-dom";
-import balaLogo from "../../assets/bala-wealth-logo.png";
+import BrandMark from "./BrandMark";
 
 interface NavItem {
   label: string;
@@ -16,8 +16,8 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: "My Bala", icon: Home, to: "/my-bala" },
-  { label: "BalaStocks", icon: Landmark, to: "/bala-stocks" },
+  { label: "Overview", icon: Home, to: "/my-bala" },
+  { label: "IN Stocks", icon: Landmark, to: "/bala-stocks" },
   { label: "F&O", icon: LineChart, to: "/f-and-o" },
   { label: "Screener", icon: Filter, to: "/screener" },
   {
@@ -30,11 +30,14 @@ const navItems: NavItem[] = [
 export default function Sidebar() {
   return (
     <aside className="sidebar" aria-label="Primary navigation">
-      <NavLink className="brand-lockup" to="/my-bala" aria-label="Bala Wealth home">
-        <span className="brand-lockup__mark" aria-hidden="true">
-          <img src={balaLogo} alt="" />
+      <NavLink className="brand-lockup" to="/my-bala" aria-label="Wealth Pilot home">
+        <span className="brand-lockup__mark">
+          <BrandMark />
         </span>
-        <span className="brand-lockup__name">Bala</span>
+        <span className="brand-lockup__name">
+          <strong>Wealth</strong>
+          <small>PILOT</small>
+        </span>
       </NavLink>
 
       <nav className="side-nav">

@@ -39,7 +39,7 @@ interface FundOption {
 const funds: [FundOption, ...FundOption[]] = [
   {
     id: "flexi-cap",
-    name: "Bala Flexi Cap Fund",
+    name: "Pilot Flexi Cap Fund",
     category: "Equity - Flexi Cap",
     risk: "Moderately High",
     sip: "$250/mo",
@@ -57,7 +57,7 @@ const funds: [FundOption, ...FundOption[]] = [
   },
   {
     id: "nifty-index",
-    name: "Bala Nifty 50 Index Fund",
+    name: "Pilot Nifty 50 Index Fund",
     category: "Equity - Large Cap Index",
     risk: "High",
     sip: "$200/mo",
@@ -75,7 +75,7 @@ const funds: [FundOption, ...FundOption[]] = [
   },
   {
     id: "short-debt",
-    name: "Bala Short Duration Debt Fund",
+    name: "Pilot Short Duration Debt Fund",
     category: "Debt - Short Duration",
     risk: "Low to Moderate",
     sip: "$200/mo",
