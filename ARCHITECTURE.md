@@ -5,7 +5,7 @@ Portfolio Pilot is organized around feature folders with shared primitives for a
 ## Folder Structure
 
 - `src/app` owns layout and routing. Routes are lazy-loaded with `React.lazy` and wrapped in `Suspense` so new pages do not automatically inflate the initial bundle.
-- `src/features` contains page-level product areas such as the US stocks dashboard, My Bala, BalaStocks, F&O, funds, and explore. Feature folders can keep local components, hooks, services, and data close to the page that owns them.
+- `src/features` contains page-level product areas such as the US stocks dashboard, Overview (`my-bala`), IN Stocks (`bala-stocks`), F&O, funds, and explore. Feature folders can keep local components, hooks, services, and data close to the page that owns them.
 - `src/shared` contains code that is intentionally reusable across feature boundaries, including navigation-adjacent components, formatters, dummy route pages, and portfolio domain types.
 - `src/styles/tokens.css` is the design-token source of truth for colors, fonts, spacing, and radii. `src/styles/globals.css` consumes those tokens for layout and component styling.
 - `scripts/create-spa-fallback.mjs` creates `404.html` and route-specific fallback files after the Vite build so direct GitHub Pages refreshes work for client-side routes.

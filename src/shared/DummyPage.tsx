@@ -22,9 +22,9 @@ interface PageContent {
 }
 
 const pages: Record<string, PageContent> = {
-  "My Bala": {
+  Overview: {
     eyebrow: "Net worth snapshot",
-    title: "Good morning, Bala",
+    title: "Good morning",
     summary:
       "A quick view of your tracked money across stocks, funds, cash, and open trading activity.",
     metrics: [
@@ -40,9 +40,9 @@ const pages: Record<string, PageContent> = {
       { title: "Keep cash ready", detail: "Cash can cover your next three planned orders.", value: "$2.8k" },
     ],
   },
-  BalaStocks: {
+  "IN Stocks": {
     eyebrow: "Indian stocks",
-    title: "BalaStocks watch hub",
+    title: "Indian Stocks watch hub",
     summary:
       "Track Indian equity ideas, watchlist moves, and sector exposure before placing an order.",
     metrics: [
@@ -134,7 +134,7 @@ const pages: Record<string, PageContent> = {
     eyebrow: "Mutual funds",
     title: "Fund portfolio",
     summary:
-      "See SIP health, category spread, and long-term fund performance without leaving Bala Money.",
+      "See SIP health, category spread, and long-term fund performance without leaving Wealth Pilot.",
     metrics: [
       { label: "Current value", value: "$9,860.40", detail: "+18.4% absolute", positive: true },
       { label: "Monthly SIP", value: "$650", detail: "Next debit in 8 days" },
@@ -150,7 +150,7 @@ const pages: Record<string, PageContent> = {
   },
 };
 
-const defaultPage = pages["My Bala"] as PageContent;
+const defaultPage = pages.Overview as PageContent;
 
 interface DummyPageProps {
   title: string;

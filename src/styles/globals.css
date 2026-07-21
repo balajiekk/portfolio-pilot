@@ -119,7 +119,6 @@ ul {
 }
 
 .brand-lockup__mark {
-  position: relative;
   display: block;
   width: 51px;
   height: 51px;
@@ -129,17 +128,28 @@ ul {
   background: var(--wealth-brand-mark-bg);
 }
 
-.brand-lockup__mark img {
-  position: absolute;
-  top: -8px;
-  left: -4px;
-  width: 100px;
-  max-width: none;
+.brand-lockup__mark svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .brand-lockup__name {
+  display: grid;
+  gap: 2px;
+}
+
+.brand-lockup__name strong {
   color: var(--wealth-brand-text);
   font-size: 21px;
+  font-weight: inherit;
+}
+
+.brand-lockup__name small {
+  color: var(--wealth-gold);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
 }
 
 .side-nav {
@@ -235,7 +245,6 @@ ul {
 }
 
 .topbar-brand__mark {
-  position: relative;
   display: block;
   width: 66px;
   height: 66px;
@@ -245,12 +254,10 @@ ul {
   background: var(--brand-dark-strong);
 }
 
-.topbar-brand__mark img {
-  position: absolute;
-  top: -10px;
-  left: -5px;
-  width: 128px;
-  max-width: none;
+.topbar-brand__mark svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .topbar-brand__copy {
@@ -1719,13 +1726,7 @@ ul {
     flex-basis: 44px;
   }
 
-  .brand-lockup__mark img {
-    top: -7px;
-    left: -4px;
-    width: 88px;
-  }
-
-  .brand-lockup__name {
+  .brand-lockup__name strong {
     font-size: 20px;
   }
 
@@ -1910,7 +1911,7 @@ ul {
     gap: 12px;
   }
 
-  .brand-lockup__name {
+  .brand-lockup__name strong {
     font-size: 18px;
   }
 

@@ -12,7 +12,7 @@ Portfolio Pilot is a React dashboard prototype inspired by the IndMoney US stock
 - Loading skeletons, retryable error states, and empty states for market indices and holdings.
 - URL-backed stock search using the `q` query parameter with a 300ms debounce and ticker autocomplete suggestions.
 - Sortable holdings returns column and pagination controls for larger portfolios.
-- Bala Wealth branded sidebar with image-based logo and app links for My Bala, BalaStocks, F&O, and US Stocks.
+- Wealth Pilot branded sidebar with an SVG brand mark and app links for Overview, IN Stocks, F&O, and US Stocks.
 - Wealth snapshot page styled with a dark rail, serif typography, cream surface, summary cards, and compact holdings rows.
 - Split-view stock screener at `/screener` with filter controls, a top-10 stock list, and an in-place detail panel.
 - Centralized design tokens for colors, fonts, spacing, and radii in `src/styles/tokens.css`.

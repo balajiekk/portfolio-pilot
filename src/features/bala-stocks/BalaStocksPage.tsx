@@ -23,7 +23,7 @@ export default function BalaStocksPage() {
   return (
     <SectionPage
       eyebrow="Indian stocks"
-      title="BalaStocks watch hub"
+      title="Indian Stocks watch hub"
       summary="Track Indian equity ideas, watchlist moves, and sector exposure before placing an order."
       metrics={metrics}
       listTitle="Market focus"
