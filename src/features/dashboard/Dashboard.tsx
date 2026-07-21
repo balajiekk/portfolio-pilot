@@ -2,6 +2,7 @@ import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
+import KpiCard from "./components/KpiCard";
 import { usePortfolio } from "./hooks/usePortfolio";
 import type { Holding, TrendDirection } from "./types/dashboard";
 import {
@@ -82,6 +83,19 @@ function Sparkline({
   );
 }
 
+function KpiSkeleton() {
+  return (
+    <div className="kpi-strip" aria-label="Loading portfolio summary">
+      {Array.from({ length: 4 }, (_, index) => (
+        <div className="kpi-card kpi-card--skeleton" key={index}>
+          <span className="skeleton skeleton--text" />
+          <span className="skeleton skeleton--short" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function MarketSkeleton() {
   return (
     <div className="market-strip" aria-label="Loading market indices">
@@ -126,6 +140,7 @@ export default function Dashboard() {
   const query = searchParams.get("q")?.trim().toLowerCase() ?? "";
   const holdings = data?.holdings ?? [];
   const marketIndices = data?.marketIndices ?? [];
+  const kpis = data?.kpis ?? [];
   const visibleHoldings = useMemo(() => {
     const filteredHoldings = query
       ? holdings.filter((holding) => {
@@ -162,6 +177,16 @@ export default function Dashboard() {
       <h1 id="stocks-page-title" className="sr-only">
         My US Stocks
       </h1>
+
+      {isLoading && !data ? (
+        <KpiSkeleton />
+      ) : (
+        <div className="kpi-strip" aria-label="Portfolio summary">
+          {kpis.map((kpi) => (
+            <KpiCard key={kpi.id} item={kpi} />
+          ))}
+        </div>
+      )}
 
       {isLoading && !data ? (
         <MarketSkeleton />

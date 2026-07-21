@@ -1,5 +1,4 @@
 import type { Holding, Kpi, MarketIndex } from "../types/dashboard";
-import { formatCurrency, formatPercent } from "../../../shared/utils/formatters";
 
 export const marketIndices: MarketIndex[] = [
   {
@@ -119,29 +118,27 @@ export const kpis: Kpi[] = [
   {
     id: 1,
     title: "Portfolio Value",
-    value: formatCurrency(2526.96),
-    change: formatPercent(58.1, { signed: true }),
-    positive: true,
+    value: 2526.96,
+    changePercent: 58.1,
   },
   {
     id: 2,
     title: "Day Movement",
-    value: formatCurrency(1.29, { signed: true }),
-    change: formatPercent(0.05, { signed: true }),
-    positive: true,
+    value: 1.29,
+    signedValue: true,
+    changePercent: 0.05,
   },
   {
     id: 3,
     title: "Overall P&L",
-    value: formatCurrency(928.82, { signed: true }),
-    change: formatPercent(58.1, { signed: true }),
-    positive: true,
+    value: 928.82,
+    signedValue: true,
+    changePercent: 58.1,
   },
   {
     id: 4,
     title: "Invested",
-    value: formatCurrency(1598.14),
-    change: "",
-    positive: true,
+    value: 1598.14,
+    changePercent: null,
   },
 ];

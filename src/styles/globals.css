@@ -580,6 +580,56 @@ ul {
   font-family: var(--font-serif);
 }
 
+.kpi-strip {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(4, minmax(180px, 1fr));
+  padding: var(--space-6) var(--space-12) 0;
+  background: var(--wealth-cream);
+}
+
+.kpi-card {
+  display: grid;
+  gap: 6px;
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--wealth-line);
+  border-radius: var(--radius-sm);
+  background: var(--wealth-card-bg);
+}
+
+.kpi-card--skeleton {
+  gap: 8px;
+}
+
+.kpi-card__title {
+  color: var(--wealth-text-label);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.kpi-card__value {
+  color: var(--wealth-text-primary);
+  font-size: 22px;
+  font-weight: 650;
+}
+
+.kpi-card__change {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.kpi-card__change--up {
+  color: var(--wealth-positive-text);
+}
+
+.kpi-card__change--down {
+  color: var(--wealth-negative-text);
+}
+
 .market-strip {
   display: grid;
   min-height: 74px;
@@ -1591,10 +1641,15 @@ ul {
     width: 184px;
   }
 
+  .kpi-strip,
   .market-strip,
   .holding-row {
     padding-right: 28px;
     padding-left: 28px;
+  }
+
+  .kpi-strip {
+    grid-template-columns: repeat(2, minmax(160px, 1fr));
   }
 
   .holding-row {
@@ -1692,6 +1747,11 @@ ul {
     width: 22px;
     height: 22px;
     flex-basis: 22px;
+  }
+
+  .kpi-strip {
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+    padding: var(--space-4) 16px 0;
   }
 
   .market-strip {

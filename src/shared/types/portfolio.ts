@@ -3,9 +3,12 @@ export type TrendDirection = "up" | "down";
 export interface Kpi {
   id: number;
   title: string;
-  value: string;
-  change: string;
-  positive: boolean;
+  /** Currency amount; formatted at render. */
+  value: number;
+  /** Render the value with an explicit +/- sign (e.g. day movement, P&L). */
+  signedValue?: boolean;
+  /** Signed percentage change; null when a change figure does not apply. */
+  changePercent: number | null;
 }
 
 export interface MarketIndex {
