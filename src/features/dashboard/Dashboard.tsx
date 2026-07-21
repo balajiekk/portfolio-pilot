@@ -4,7 +4,13 @@ import { useSearchParams } from "react-router-dom";
 
 import { usePortfolio } from "./hooks/usePortfolio";
 import type { Holding, TrendDirection } from "./types/dashboard";
-import { parsePercent } from "../../shared/utils/formatters";
+import {
+  formatCurrency,
+  formatNumber,
+  formatPercent,
+  formatShares,
+  trendOf,
+} from "../../shared/utils/formatters";
 
 type SortDirection = "asc" | "desc";
 
@@ -131,10 +137,9 @@ export default function Dashboard() {
       : holdings;
 
     return [...filteredHoldings].sort((firstHolding, secondHolding) => {
-      const firstValue = parsePercent(firstHolding.totalGainPercent);
-      const secondValue = parsePercent(secondHolding.totalGainPercent);
+      const difference = firstHolding.totalGainPercent - secondHolding.totalGainPercent;
 
-      return sortDirection === "desc" ? secondValue - firstValue : firstValue - secondValue;
+      return sortDirection === "desc" ? -difference : difference;
     });
   }, [holdings, query, sortDirection]);
   const pageCount = Math.max(1, Math.ceil(visibleHoldings.length / pageSize));
@@ -162,21 +167,27 @@ export default function Dashboard() {
         <MarketSkeleton />
       ) : (
         <div className="market-strip" aria-label="Market indices">
-          {marketIndices.map((index) => (
-            <div className={`market-index market-index--${index.trend}`} key={index.id}>
-              <div className="market-index__main">
-                <span className="market-index__name">{index.name}</span>
-                <strong className="market-index__value">{index.value}</strong>
+          {marketIndices.map((index) => {
+            const trend = trendOf(index.change);
+
+            return (
+              <div className={`market-index market-index--${trend}`} key={index.id}>
+                <div className="market-index__main">
+                  <span className="market-index__name">{index.name}</span>
+                  <strong className="market-index__value">{formatNumber(index.value)}</strong>
+                </div>
+                <span className={`market-index__badge market-index__badge--${trend}`}>
+                  <TrendIndicator
+                    compact
+                    trend={trend}
+                    value={`${formatNumber(Math.abs(index.change))} (${formatPercent(
+                      Math.abs(index.changePercent)
+                    )})`}
+                  />
+                </span>
               </div>
-              <span className={`market-index__badge market-index__badge--${index.trend}`}>
-                <TrendIndicator
-                  compact
-                  trend={index.trend}
-                  value={`${index.change} (${index.changePercent})`}
-                />
-              </span>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
 
@@ -221,56 +232,61 @@ export default function Dashboard() {
           </div>
         ) : null}
 
-        {paginatedHoldings.map((holding) => (
-          <article className="holding-row" key={holding.id}>
-            <div className="stock-identity">
-              <LogoMark holding={holding} />
+        {paginatedHoldings.map((holding) => {
+          const dailyTrend = trendOf(holding.dailyChangePercent);
+          const totalTrend = trendOf(holding.totalGain);
 
-              <div className="stock-identity__text">
-                <h2>{holding.companyName}</h2>
-                <span>{holding.ticker}</span>
+          return (
+            <article className="holding-row" key={holding.id}>
+              <div className="stock-identity">
+                <LogoMark holding={holding} />
+
+                <div className="stock-identity__text">
+                  <h2>{holding.companyName}</h2>
+                  <span>{holding.ticker}</span>
+                </div>
               </div>
-            </div>
 
-            <div className="holding-cell holding-cell--price">
-              <span className="cell-label">Market Price</span>
-              <strong>{holding.lastPrice}</strong>
-              <TrendIndicator
-                trend={holding.dailyTrend}
-                value={holding.dailyChangePercent}
-              />
-            </div>
+              <div className="holding-cell holding-cell--price">
+                <span className="cell-label">Market Price</span>
+                <strong>{formatCurrency(holding.lastPrice)}</strong>
+                <TrendIndicator
+                  trend={dailyTrend}
+                  value={formatPercent(Math.abs(holding.dailyChangePercent))}
+                />
+              </div>
 
-            <div className="holding-cell holding-cell--invested">
-              <span className="cell-label">Invested</span>
-              <strong>{holding.investedValue}</strong>
-              <span className="holding-meta">
-                {holding.quantity} Qty
-                <span aria-hidden="true" />
-                {holding.averagePrice} Avg.
-              </span>
-            </div>
+              <div className="holding-cell holding-cell--invested">
+                <span className="cell-label">Invested</span>
+                <strong>{formatCurrency(holding.investedValue)}</strong>
+                <span className="holding-meta">
+                  {formatShares(holding.quantity)} Qty
+                  <span aria-hidden="true" />
+                  {formatCurrency(holding.averagePrice)} Avg.
+                </span>
+              </div>
 
-            <div className="holding-cell holding-cell--sparkline">
-              <span className="cell-label">Trend</span>
-              <Sparkline points={holding.sparkline} trend={holding.totalTrend} />
-            </div>
+              <div className="holding-cell holding-cell--sparkline">
+                <span className="cell-label">Trend</span>
+                <Sparkline points={holding.sparkline} trend={totalTrend} />
+              </div>
 
-            <div className="holding-cell">
-              <span className="cell-label">Current Value</span>
-              <strong>{holding.currentValue}</strong>
-            </div>
+              <div className="holding-cell">
+                <span className="cell-label">Current Value</span>
+                <strong>{formatCurrency(holding.currentValue)}</strong>
+              </div>
 
-            <div className="holding-cell holding-cell--returns">
-              <span className="cell-label">Returns</span>
-              <strong>{holding.totalGain}</strong>
-              <TrendIndicator
-                trend={holding.totalTrend}
-                value={holding.totalGainPercent}
-              />
-            </div>
-          </article>
-        ))}
+              <div className="holding-cell holding-cell--returns">
+                <span className="cell-label">Returns</span>
+                <strong>{formatCurrency(holding.totalGain, { signed: true })}</strong>
+                <TrendIndicator
+                  trend={totalTrend}
+                  value={formatPercent(Math.abs(holding.totalGainPercent))}
+                />
+              </div>
+            </article>
+          );
+        })}
 
         {!isLoading && !error && visibleHoldings.length > pageSize ? (
           <div className="table-pagination" aria-label="Holdings pagination">
