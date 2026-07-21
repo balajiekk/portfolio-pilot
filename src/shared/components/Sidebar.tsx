@@ -1,5 +1,6 @@
 import {
   DollarSign,
+  Filter,
   Home,
   Landmark,
   LineChart,
@@ -18,6 +19,7 @@ const navItems: NavItem[] = [
   { label: "My Bala", icon: Home, to: "/my-bala" },
   { label: "BalaStocks", icon: Landmark, to: "/bala-stocks" },
   { label: "F&O", icon: LineChart, to: "/f-and-o" },
+  { label: "Screener", icon: Filter, to: "/screener" },
   {
     label: "US Stocks",
     icon: DollarSign,
