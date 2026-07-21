@@ -3,18 +3,23 @@ export type TrendDirection = "up" | "down";
 export interface Kpi {
   id: number;
   title: string;
-  value: string;
-  change: string;
-  positive: boolean;
+  /** Currency amount; formatted at render. */
+  value: number;
+  /** Render the value with an explicit +/- sign (e.g. day movement, P&L). */
+  signedValue?: boolean;
+  /** Signed percentage change; null when a change figure does not apply. */
+  changePercent: number | null;
 }
 
 export interface MarketIndex {
   id: string;
   name: string;
-  value: string;
-  change: string;
-  changePercent: string;
-  trend: TrendDirection;
+  /** Numeric domain values. Formatted for display at render time. */
+  value: number;
+  /** Signed day change in index points. */
+  change: number;
+  /** Signed day change as a percentage, e.g. -1.26. */
+  changePercent: number;
 }
 
 export interface Holding {
@@ -24,16 +29,18 @@ export interface Holding {
   logoText: string;
   logoTone: "navy" | "black" | "blue" | "teal";
   sparkline: number[];
-  lastPrice: string;
-  dailyChangePercent: string;
-  dailyTrend: TrendDirection;
-  investedValue: string;
-  quantity: string;
-  averagePrice: string;
-  currentValue: string;
-  totalGain: string;
-  totalGainPercent: string;
-  totalTrend: TrendDirection;
+  /** All monetary/percent fields are raw numbers; format at render. */
+  lastPrice: number;
+  /** Signed daily change as a percentage, e.g. -0.92. */
+  dailyChangePercent: number;
+  investedValue: number;
+  quantity: number;
+  averagePrice: number;
+  currentValue: number;
+  /** Signed total gain in currency. */
+  totalGain: number;
+  /** Signed total gain as a percentage. */
+  totalGainPercent: number;
 }
 
 export interface PortfolioSnapshot {

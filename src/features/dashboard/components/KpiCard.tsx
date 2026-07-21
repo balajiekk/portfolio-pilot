@@ -1,46 +1,26 @@
 import type { Kpi } from "../types/dashboard";
+import { formatCurrency, formatPercent, trendOf } from "../../../shared/utils/formatters";
 
 interface Props {
   item: Kpi;
 }
 
 export default function KpiCard({ item }: Props) {
+  const changeTrend = item.changePercent === null ? null : trendOf(item.changePercent);
+
   return (
-    <div
-      style={{
-        background: "#ffffff",
-        borderRadius: "12px",
-        padding: "20px",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-        minHeight: "120px",
-      }}
-    >
-      <p
-        style={{
-          color: "#6B7280",
-          fontSize: "14px",
-          marginBottom: "12px",
-        }}
-      >
-        {item.title}
-      </p>
+    <div className="kpi-card">
+      <p className="kpi-card__title">{item.title}</p>
 
-      <h2
-        style={{
-          marginBottom: "10px",
-        }}
-      >
-        {item.value}
-      </h2>
+      <strong className="kpi-card__value">
+        {formatCurrency(item.value, { signed: item.signedValue })}
+      </strong>
 
-      <span
-        style={{
-          color: item.positive ? "#16A34A" : "#DC2626",
-          fontWeight: "bold",
-        }}
-      >
-        {item.change}
-      </span>
+      {item.changePercent !== null ? (
+        <span className={`kpi-card__change kpi-card__change--${changeTrend}`}>
+          {formatPercent(item.changePercent, { signed: true })}
+        </span>
+      ) : null}
     </div>
   );
 }
