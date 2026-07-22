@@ -5,6 +5,7 @@ import {
   Home,
   Landmark,
   LineChart,
+  Percent,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { NavLink } from "react-router-dom";
@@ -22,6 +23,7 @@ const navItems: NavItem[] = [
   { label: "F&O", icon: LineChart, to: "/f-and-o" },
   { label: "Screener", icon: Filter, to: "/screener" },
   { label: "Earnings", icon: Calendar, to: "/earnings" },
+  { label: "Dividends", icon: Percent, to: "/dividends" },
   {
     label: "US Stocks",
     icon: DollarSign,

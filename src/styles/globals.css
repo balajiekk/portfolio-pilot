@@ -1789,6 +1789,53 @@ ul {
   background: rgba(112, 107, 98, 0.12);
 }
 
+.dividends-page {
+  display: grid;
+  gap: 28px;
+  min-height: 100%;
+  padding: 70px var(--space-12) 64px;
+  background: var(--wealth-cream);
+  color: var(--wealth-text-primary);
+  font-family: var(--font-serif);
+}
+
+.dividends-page__header {
+  display: grid;
+  gap: 12px;
+}
+
+.dividends-page__header span {
+  color: var(--wealth-gold-dark);
+  font-size: 16px;
+  font-weight: 650;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+
+.dividends-page__header h1 {
+  color: var(--wealth-text-heading);
+  font-size: 42px;
+  font-weight: 560;
+  line-height: 1.05;
+}
+
+.dividends-page__header p {
+  max-width: 640px;
+  color: var(--wealth-text-subtle);
+  font-size: 18px;
+  line-height: 1.45;
+}
+
+.holding-row--dividends {
+  grid-template-columns:
+    minmax(240px, 1.6fr)
+    minmax(110px, 0.55fr)
+    minmax(110px, 0.55fr)
+    minmax(130px, 0.65fr)
+    minmax(140px, 0.65fr)
+    minmax(120px, 0.6fr);
+}
+
 @media (max-width: 1180px) {
   .sidebar {
     width: 244px;

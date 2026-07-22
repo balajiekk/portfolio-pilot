@@ -11,6 +11,7 @@ const fallbackFiles = [
   "f-and-o/index.html",
   "screener/index.html",
   "earnings/index.html",
+  "dividends/index.html",
   "investments/us-stocks/my-us-stocks/index.html",
   "orders/index.html",
   "wallet-history/index.html",
