@@ -24,9 +24,11 @@ function buildDays(): EarningsDay[] {
 }
 
 const days = buildDays();
+// earningsEvents is always non-empty, so buildDays() always returns at least one day.
+const firstDay = days[0]!;
 
 export default function EarningsPage() {
-  const [selectedDate, setSelectedDate] = useState(days[0].date);
+  const [selectedDate, setSelectedDate] = useState(firstDay.date);
   const [session, setSession] = useState<EarningsSessionFilter>("All");
 
   const visibleEvents = useMemo(() => {
