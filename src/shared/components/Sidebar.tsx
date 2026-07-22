@@ -1,4 +1,5 @@
 import {
+  Calendar,
   DollarSign,
   Filter,
   Home,
@@ -20,6 +21,7 @@ const navItems: NavItem[] = [
   { label: "IN Stocks", icon: Landmark, to: "/bala-stocks" },
   { label: "F&O", icon: LineChart, to: "/f-and-o" },
   { label: "Screener", icon: Filter, to: "/screener" },
+  { label: "Earnings", icon: Calendar, to: "/earnings" },
   {
     label: "US Stocks",
     icon: DollarSign,
