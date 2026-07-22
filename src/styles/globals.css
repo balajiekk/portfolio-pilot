@@ -1637,6 +1637,158 @@ ul {
   min-height: 100%;
 }
 
+.earnings-page {
+  display: grid;
+  gap: 28px;
+  min-height: 100%;
+  padding: 70px var(--space-12) 64px;
+  background: var(--wealth-cream);
+  color: var(--wealth-text-primary);
+  font-family: var(--font-serif);
+}
+
+.earnings-page__header {
+  display: grid;
+  gap: 12px;
+}
+
+.earnings-page__header span {
+  color: var(--wealth-gold-dark);
+  font-size: 16px;
+  font-weight: 650;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+
+.earnings-page__header h1 {
+  color: var(--wealth-text-heading);
+  font-size: 42px;
+  font-weight: 560;
+  line-height: 1.05;
+}
+
+.earnings-page__header p {
+  max-width: 640px;
+  color: var(--wealth-text-subtle);
+  font-size: 18px;
+  line-height: 1.45;
+}
+
+.earnings-day-tabs {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+}
+
+.earnings-day-tab {
+  display: grid;
+  min-width: 148px;
+  gap: 6px;
+  padding: 14px 20px;
+  border: 1px solid var(--wealth-line);
+  border-radius: var(--radius-sm);
+  background: var(--wealth-card-bg);
+  text-align: left;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.earnings-day-tab:hover {
+  border-color: rgba(201, 161, 92, 0.46);
+  background: var(--wealth-surface-hover);
+  transform: translateY(-1px);
+}
+
+.earnings-day-tab--active {
+  border-color: var(--wealth-gold);
+  background: rgba(201, 161, 92, 0.12);
+}
+
+.earnings-day-tab__label {
+  color: var(--wealth-text-row);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.earnings-day-tab__count {
+  color: var(--wealth-text-muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.earnings-session-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.earnings-session-pill {
+  min-height: 40px;
+  padding: 0 18px;
+  border: 1px solid var(--wealth-line);
+  border-radius: 999px;
+  color: var(--wealth-text-muted);
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 650;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.earnings-session-pill:hover {
+  border-color: rgba(201, 161, 92, 0.46);
+  color: var(--wealth-text-heading);
+}
+
+.earnings-session-pill--active {
+  border-color: var(--wealth-gold);
+  background: var(--wealth-sidebar-bg);
+  color: var(--wealth-gold);
+}
+
+.holding-row--earnings {
+  grid-template-columns:
+    minmax(240px, 1.6fr)
+    minmax(128px, 0.65fr)
+    minmax(120px, 0.6fr)
+    minmax(120px, 0.6fr)
+    minmax(100px, 0.55fr)
+    minmax(120px, 0.65fr);
+}
+
+.earnings-session-badge {
+  display: inline-flex;
+  min-height: 30px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.earnings-session-badge--bmo {
+  color: var(--wealth-chip-gold-text);
+  background: var(--wealth-chip-gold-bg);
+}
+
+.earnings-session-badge--amc {
+  color: var(--wealth-chip-sage-text);
+  background: var(--wealth-chip-sage-bg);
+}
+
+.earnings-session-badge--tns {
+  color: var(--wealth-text-muted);
+  background: rgba(112, 107, 98, 0.12);
+}
+
 @media (max-width: 1180px) {
   .sidebar {
     width: 244px;

@@ -15,6 +15,7 @@ Portfolio Pilot is a React dashboard prototype inspired by the IndMoney US stock
 - Wealth Pilot branded sidebar with an SVG brand mark and app links for Overview, IN Stocks, F&O, and US Stocks.
 - Wealth snapshot page styled with a dark rail, serif typography, cream surface, summary cards, and compact holdings rows.
 - Split-view stock screener at `/screener` with filter controls, a top-10 stock list, and an in-place detail panel.
+- Earnings calendar at `/earnings` (Yahoo Finance-style) with day-by-day tabs, before-open/after-close/time-TBD session filters, and EPS estimate vs. reported surprise per company.
 - Centralized design tokens for colors, fonts, spacing, and radii in `src/styles/tokens.css`.
 - Lazy-loaded feature routes and GitHub Pages SPA fallbacks for nested URLs.
 - Strict shared portfolio types in `src/shared/types/portfolio.ts`.

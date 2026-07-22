@@ -7,6 +7,7 @@ import DummyPage from "../../shared/DummyPage";
 
 const BalaStocksPage = lazy(() => import("../../features/bala-stocks/BalaStocksPage"));
 const Dashboard = lazy(() => import("../../features/dashboard/Dashboard"));
+const EarningsPage = lazy(() => import("../../features/earnings/EarningsPage"));
 const ExplorePage = lazy(() => import("../../features/explore/ExplorePage"));
 const FAndOPage = lazy(() => import("../../features/f-and-o/FAndOPage"));
 const FundsPage = lazy(() => import("../../features/funds/FundsPage"));
@@ -30,6 +31,7 @@ export default function AppRoutes() {
       <Route path="/bala-stocks" element={withLayout(<BalaStocksPage />)} />
       <Route path="/f-and-o" element={withLayout(<FAndOPage />)} />
       <Route path="/screener" element={withLayout(<ScreenerPage />)} />
+      <Route path="/earnings" element={withLayout(<EarningsPage />)} />
       <Route path="/investments/us-stocks/my-us-stocks" element={withLayout(<Dashboard />)} />
       <Route path="/orders" element={withLayout(<DummyPage title="Orders" />)} />
       <Route path="/wallet-history" element={withLayout(<DummyPage title="Wallet History" />)} />
